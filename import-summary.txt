@@ -1,0 +1,448 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Risky Project Location:
+-----------------------
+The tools *should* handle project locations in any directory. However,
+due to bugs, placing projects in directories containing spaces in the
+path, or characters like ", ' and &, have had issues. We're working to
+eliminate these bugs, but to save yourself headaches you may want to
+move your project to a location where this is not a problem.
+C:\Users\Vitor Ribeiro\AndroidStudioProjects\CompanionLibrary
+              -                                              
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* doc\
+* doc\allclasses-frame.html
+* doc\allclasses-noframe.html
+* doc\companion\
+* doc\companion\support\
+* doc\companion\support\v8\
+* doc\companion\support\v8\accounts\
+* doc\companion\support\v8\accounts\AccountUtils.html
+* doc\companion\support\v8\accounts\class-use\
+* doc\companion\support\v8\accounts\class-use\AccountUtils.html
+* doc\companion\support\v8\accounts\package-frame.html
+* doc\companion\support\v8\accounts\package-summary.html
+* doc\companion\support\v8\accounts\package-tree.html
+* doc\companion\support\v8\accounts\package-use.html
+* doc\companion\support\v8\animation\
+* doc\companion\support\v8\animation\AnimatorCompat.AnimatorListener.html
+* doc\companion\support\v8\animation\AnimatorCompat.html
+* doc\companion\support\v8\animation\AnimatorInflaterCompat.html
+* doc\companion\support\v8\animation\AnimatorListenerAdapterCompat.html
+* doc\companion\support\v8\animation\AnimatorSetCompat.Builder.html
+* doc\companion\support\v8\animation\AnimatorSetCompat.html
+* doc\companion\support\v8\animation\ArgbEvaluatorCompat.html
+* doc\companion\support\v8\animation\FloatEvaluatorCompat.html
+* doc\companion\support\v8\animation\FloatKeyframeSet.html
+* doc\companion\support\v8\animation\IntEvaluatorCompat.html
+* doc\companion\support\v8\animation\IntKeyframeSet.html
+* doc\companion\support\v8\animation\KeyframeCompat.FloatKeyframe.html
+* doc\companion\support\v8\animation\KeyframeCompat.IntKeyframe.html
+* doc\companion\support\v8\animation\KeyframeCompat.ObjectKeyframe.html
+* doc\companion\support\v8\animation\KeyframeCompat.html
+* doc\companion\support\v8\animation\KeyframeSet.html
+* doc\companion\support\v8\animation\ObjectAnimatorCompat.html
+* doc\companion\support\v8\animation\PreHoneycombCompat.html
+* doc\companion\support\v8\animation\PropertyValuesHolderCompat.FloatPropertyValuesHolder.html
+* doc\companion\support\v8\animation\PropertyValuesHolderCompat.IntPropertyValuesHolder.html
+* doc\companion\support\v8\animation\PropertyValuesHolderCompat.html
+* doc\companion\support\v8\animation\TimeAnimatorCompat.TimeListener.html
+* doc\companion\support\v8\animation\TimeAnimatorCompat.html
+* doc\companion\support\v8\animation\TypeEvaluatorCompat.html
+* doc\companion\support\v8\animation\ValueAnimatorCompat.AnimatorUpdateListener.html
+* doc\companion\support\v8\animation\ValueAnimatorCompat.html
+* doc\companion\support\v8\animation\class-use\
+* doc\companion\support\v8\animation\class-use\AnimatorCompat.AnimatorListener.html
+* doc\companion\support\v8\animation\class-use\AnimatorCompat.html
+* doc\companion\support\v8\animation\class-use\AnimatorInflaterCompat.html
+* doc\companion\support\v8\animation\class-use\AnimatorListenerAdapterCompat.html
+* doc\companion\support\v8\animation\class-use\AnimatorSetCompat.Builder.html
+* doc\companion\support\v8\animation\class-use\AnimatorSetCompat.html
+* doc\companion\support\v8\animation\class-use\ArgbEvaluatorCompat.html
+* doc\companion\support\v8\animation\class-use\FloatEvaluatorCompat.html
+* doc\companion\support\v8\animation\class-use\FloatKeyframeSet.html
+* doc\companion\support\v8\animation\class-use\IntEvaluatorCompat.html
+* doc\companion\support\v8\animation\class-use\IntKeyframeSet.html
+* doc\companion\support\v8\animation\class-use\KeyframeCompat.FloatKeyframe.html
+* doc\companion\support\v8\animation\class-use\KeyframeCompat.IntKeyframe.html
+* doc\companion\support\v8\animation\class-use\KeyframeCompat.ObjectKeyframe.html
+* doc\companion\support\v8\animation\class-use\KeyframeCompat.html
+* doc\companion\support\v8\animation\class-use\KeyframeSet.html
+* doc\companion\support\v8\animation\class-use\ObjectAnimatorCompat.html
+* doc\companion\support\v8\animation\class-use\PreHoneycombCompat.html
+* doc\companion\support\v8\animation\class-use\PropertyValuesHolderCompat.FloatPropertyValuesHolder.html
+* doc\companion\support\v8\animation\class-use\PropertyValuesHolderCompat.IntPropertyValuesHolder.html
+* doc\companion\support\v8\animation\class-use\PropertyValuesHolderCompat.html
+* doc\companion\support\v8\animation\class-use\TimeAnimatorCompat.TimeListener.html
+* doc\companion\support\v8\animation\class-use\TimeAnimatorCompat.html
+* doc\companion\support\v8\animation\class-use\TypeEvaluatorCompat.html
+* doc\companion\support\v8\animation\class-use\ValueAnimatorCompat.AnimatorUpdateListener.html
+* doc\companion\support\v8\animation\class-use\ValueAnimatorCompat.html
+* doc\companion\support\v8\animation\package-frame.html
+* doc\companion\support\v8\animation\package-summary.html
+* doc\companion\support\v8\animation\package-tree.html
+* doc\companion\support\v8\animation\package-use.html
+* doc\companion\support\v8\app\
+* doc\companion\support\v8\app\NotificationUtils.html
+* doc\companion\support\v8\app\RetainFragment.html
+* doc\companion\support\v8\app\SystemUiHider.OnVisibilityChangeListener.html
+* doc\companion\support\v8\app\SystemUiHider.html
+* doc\companion\support\v8\app\SystemUiHiderBase.html
+* doc\companion\support\v8\app\SystemUiHiderHoneycomb.html
+* doc\companion\support\v8\app\class-use\
+* doc\companion\support\v8\app\class-use\NotificationUtils.html
+* doc\companion\support\v8\app\class-use\RetainFragment.html
+* doc\companion\support\v8\app\class-use\SystemUiHider.OnVisibilityChangeListener.html
+* doc\companion\support\v8\app\class-use\SystemUiHider.html
+* doc\companion\support\v8\app\class-use\SystemUiHiderBase.html
+* doc\companion\support\v8\app\class-use\SystemUiHiderHoneycomb.html
+* doc\companion\support\v8\app\package-frame.html
+* doc\companion\support\v8\app\package-summary.html
+* doc\companion\support\v8\app\package-tree.html
+* doc\companion\support\v8\app\package-use.html
+* doc\companion\support\v8\content\
+* doc\companion\support\v8\content\BroadcastUtils.html
+* doc\companion\support\v8\content\DialogUtils.html
+* doc\companion\support\v8\content\class-use\
+* doc\companion\support\v8\content\class-use\BroadcastUtils.html
+* doc\companion\support\v8\content\class-use\DialogUtils.html
+* doc\companion\support\v8\content\package-frame.html
+* doc\companion\support\v8\content\package-summary.html
+* doc\companion\support\v8\content\package-tree.html
+* doc\companion\support\v8\content\package-use.html
+* doc\companion\support\v8\database\
+* doc\companion\support\v8\database\DatabaseSupport.html
+* doc\companion\support\v8\database\class-use\
+* doc\companion\support\v8\database\class-use\DatabaseSupport.html
+* doc\companion\support\v8\database\package-frame.html
+* doc\companion\support\v8\database\package-summary.html
+* doc\companion\support\v8\database\package-tree.html
+* doc\companion\support\v8\database\package-use.html
+* doc\companion\support\v8\graphics\
+* doc\companion\support\v8\graphics\ColorUtils.ColorInterval.html
+* doc\companion\support\v8\graphics\ColorUtils.html
+* doc\companion\support\v8\graphics\GraphicsUtils.html
+* doc\companion\support\v8\graphics\class-use\
+* doc\companion\support\v8\graphics\class-use\ColorUtils.ColorInterval.html
+* doc\companion\support\v8\graphics\class-use\ColorUtils.html
+* doc\companion\support\v8\graphics\class-use\GraphicsUtils.html
+* doc\companion\support\v8\graphics\drawable\
+* doc\companion\support\v8\graphics\drawable\AsyncDrawable.html
+* doc\companion\support\v8\graphics\drawable\BitmapDrawableRecycled.html
+* doc\companion\support\v8\graphics\drawable\class-use\
+* doc\companion\support\v8\graphics\drawable\class-use\AsyncDrawable.html
+* doc\companion\support\v8\graphics\drawable\class-use\BitmapDrawableRecycled.html
+* doc\companion\support\v8\graphics\drawable\package-frame.html
+* doc\companion\support\v8\graphics\drawable\package-summary.html
+* doc\companion\support\v8\graphics\drawable\package-tree.html
+* doc\companion\support\v8\graphics\drawable\package-use.html
+* doc\companion\support\v8\graphics\package-frame.html
+* doc\companion\support\v8\graphics\package-summary.html
+* doc\companion\support\v8\graphics\package-tree.html
+* doc\companion\support\v8\graphics\package-use.html
+* doc\companion\support\v8\hardware\
+* doc\companion\support\v8\hardware\SensorUtils.html
+* doc\companion\support\v8\hardware\class-use\
+* doc\companion\support\v8\hardware\class-use\SensorUtils.html
+* doc\companion\support\v8\hardware\package-frame.html
+* doc\companion\support\v8\hardware\package-summary.html
+* doc\companion\support\v8\hardware\package-tree.html
+* doc\companion\support\v8\hardware\package-use.html
+* doc\companion\support\v8\lang\
+* doc\companion\support\v8\lang\ExceptionParser.html
+* doc\companion\support\v8\lang\Mathematical.html
+* doc\companion\support\v8\lang\NoSuchPropertyExceptionCompat.html
+* doc\companion\support\v8\lang\ParsingUtils.html
+* doc\companion\support\v8\lang\class-use\
+* doc\companion\support\v8\lang\class-use\ExceptionParser.html
+* doc\companion\support\v8\lang\class-use\Mathematical.html
+* doc\companion\support\v8\lang\class-use\NoSuchPropertyExceptionCompat.html
+* doc\companion\support\v8\lang\class-use\ParsingUtils.html
+* doc\companion\support\v8\lang\package-frame.html
+* doc\companion\support\v8\lang\package-summary.html
+* doc\companion\support\v8\lang\package-tree.html
+* doc\companion\support\v8\lang\package-use.html
+* doc\companion\support\v8\location\
+* doc\companion\support\v8\location\LocationUtils.html
+* doc\companion\support\v8\location\NMEA.html
+* doc\companion\support\v8\location\class-use\
+* doc\companion\support\v8\location\class-use\LocationUtils.html
+* doc\companion\support\v8\location\class-use\NMEA.html
+* doc\companion\support\v8\location\package-frame.html
+* doc\companion\support\v8\location\package-summary.html
+* doc\companion\support\v8\location\package-tree.html
+* doc\companion\support\v8\location\package-use.html
+* doc\companion\support\v8\media\
+* doc\companion\support\v8\media\MediaUtils.html
+* doc\companion\support\v8\media\class-use\
+* doc\companion\support\v8\media\class-use\MediaUtils.html
+* doc\companion\support\v8\media\package-frame.html
+* doc\companion\support\v8\media\package-summary.html
+* doc\companion\support\v8\media\package-tree.html
+* doc\companion\support\v8\media\package-use.html
+* doc\companion\support\v8\net\
+* doc\companion\support\v8\net\NetworkUtils.html
+* doc\companion\support\v8\net\class-use\
+* doc\companion\support\v8\net\class-use\NetworkUtils.html
+* doc\companion\support\v8\net\package-frame.html
+* doc\companion\support\v8\net\package-summary.html
+* doc\companion\support\v8\net\package-tree.html
+* doc\companion\support\v8\net\package-use.html
+* doc\companion\support\v8\os\
+* doc\companion\support\v8\os\AsyncTaskCompat.Status.html
+* doc\companion\support\v8\os\AsyncTaskCompat.html
+* doc\companion\support\v8\os\BitmapLoader.html
+* doc\companion\support\v8\os\BitmapWorkerTask.html
+* doc\companion\support\v8\os\ImageWorker.CacheAsyncTask.html
+* doc\companion\support\v8\os\ImageWorker.html
+* doc\companion\support\v8\os\Storage.html
+* doc\companion\support\v8\os\Utils.html
+* doc\companion\support\v8\os\class-use\
+* doc\companion\support\v8\os\class-use\AsyncTaskCompat.Status.html
+* doc\companion\support\v8\os\class-use\AsyncTaskCompat.html
+* doc\companion\support\v8\os\class-use\BitmapLoader.html
+* doc\companion\support\v8\os\class-use\BitmapWorkerTask.html
+* doc\companion\support\v8\os\class-use\ImageWorker.CacheAsyncTask.html
+* doc\companion\support\v8\os\class-use\ImageWorker.html
+* doc\companion\support\v8\os\class-use\Storage.html
+* doc\companion\support\v8\os\class-use\Utils.html
+* doc\companion\support\v8\os\package-frame.html
+* doc\companion\support\v8\os\package-summary.html
+* doc\companion\support\v8\os\package-tree.html
+* doc\companion\support\v8\os\package-use.html
+* doc\companion\support\v8\preference\
+* doc\companion\support\v8\preference\PreferenceUtils.html
+* doc\companion\support\v8\preference\class-use\
+* doc\companion\support\v8\preference\class-use\PreferenceUtils.html
+* doc\companion\support\v8\preference\package-frame.html
+* doc\companion\support\v8\preference\package-summary.html
+* doc\companion\support\v8\preference\package-tree.html
+* doc\companion\support\v8\preference\package-use.html
+* doc\companion\support\v8\security\
+* doc\companion\support\v8\security\Cryptography.html
+* doc\companion\support\v8\security\PRNGFixes.LinuxPRNGSecureRandom.html
+* doc\companion\support\v8\security\PRNGFixes.html
+* doc\companion\support\v8\security\class-use\
+* doc\companion\support\v8\security\class-use\Cryptography.html
+* doc\companion\support\v8\security\class-use\PRNGFixes.LinuxPRNGSecureRandom.html
+* doc\companion\support\v8\security\class-use\PRNGFixes.html
+* doc\companion\support\v8\security\package-frame.html
+* doc\companion\support\v8\security\package-summary.html
+* doc\companion\support\v8\security\package-tree.html
+* doc\companion\support\v8\security\package-use.html
+* doc\companion\support\v8\telephony\
+* doc\companion\support\v8\telephony\TelephonyUtils.html
+* doc\companion\support\v8\telephony\class-use\
+* doc\companion\support\v8\telephony\class-use\TelephonyUtils.html
+* doc\companion\support\v8\telephony\package-frame.html
+* doc\companion\support\v8\telephony\package-summary.html
+* doc\companion\support\v8\telephony\package-tree.html
+* doc\companion\support\v8\telephony\package-use.html
+* doc\companion\support\v8\util\
+* doc\companion\support\v8\util\ArraysUtils.html
+* doc\companion\support\v8\util\DiskLruCache.Editor.html
+* doc\companion\support\v8\util\DiskLruCache.Snapshot.html
+* doc\companion\support\v8\util\DiskLruCache.html
+* doc\companion\support\v8\util\FloatProperty.html
+* doc\companion\support\v8\util\ImageCache.ImageCacheParams.html
+* doc\companion\support\v8\util\ImageCache.html
+* doc\companion\support\v8\util\IntProperty.html
+* doc\companion\support\v8\util\LogHelper.html
+* doc\companion\support\v8\util\PropertyCompat.html
+* doc\companion\support\v8\util\RandomUtils.html
+* doc\companion\support\v8\util\ReflectiveProperty.html
+* doc\companion\support\v8\util\class-use\
+* doc\companion\support\v8\util\class-use\ArraysUtils.html
+* doc\companion\support\v8\util\class-use\DiskLruCache.Editor.html
+* doc\companion\support\v8\util\class-use\DiskLruCache.Snapshot.html
+* doc\companion\support\v8\util\class-use\DiskLruCache.html
+* doc\companion\support\v8\util\class-use\FloatProperty.html
+* doc\companion\support\v8\util\class-use\ImageCache.ImageCacheParams.html
+* doc\companion\support\v8\util\class-use\ImageCache.html
+* doc\companion\support\v8\util\class-use\IntProperty.html
+* doc\companion\support\v8\util\class-use\LogHelper.html
+* doc\companion\support\v8\util\class-use\PropertyCompat.html
+* doc\companion\support\v8\util\class-use\RandomUtils.html
+* doc\companion\support\v8\util\class-use\ReflectiveProperty.html
+* doc\companion\support\v8\util\package-frame.html
+* doc\companion\support\v8\util\package-summary.html
+* doc\companion\support\v8\util\package-tree.html
+* doc\companion\support\v8\util\package-use.html
+* doc\companion\support\v8\util\zip\
+* doc\companion\support\v8\util\zip\ZipUtils.html
+* doc\companion\support\v8\util\zip\class-use\
+* doc\companion\support\v8\util\zip\class-use\ZipUtils.html
+* doc\companion\support\v8\util\zip\package-frame.html
+* doc\companion\support\v8\util\zip\package-summary.html
+* doc\companion\support\v8\util\zip\package-tree.html
+* doc\companion\support\v8\util\zip\package-use.html
+* doc\companion\support\v8\view\
+* doc\companion\support\v8\view\ContainedViewPager.html
+* doc\companion\support\v8\view\ParallaxViewPager.html
+* doc\companion\support\v8\view\SmartViewPager.html
+* doc\companion\support\v8\view\VerticalViewPager.Decor.html
+* doc\companion\support\v8\view\VerticalViewPager.ItemInfo.html
+* doc\companion\support\v8\view\VerticalViewPager.LayoutParams.html
+* doc\companion\support\v8\view\VerticalViewPager.MyAccessibilityDelegate.html
+* doc\companion\support\v8\view\VerticalViewPager.OnAdapterChangeListener.html
+* doc\companion\support\v8\view\VerticalViewPager.OnPageChangeListener.html
+* doc\companion\support\v8\view\VerticalViewPager.PageTransformer.html
+* doc\companion\support\v8\view\VerticalViewPager.SavedState.html
+* doc\companion\support\v8\view\VerticalViewPager.SimpleOnPageChangeListener.html
+* doc\companion\support\v8\view\VerticalViewPager.ViewPositionComparator.html
+* doc\companion\support\v8\view\VerticalViewPager.html
+* doc\companion\support\v8\view\ViewHelper.html
+* doc\companion\support\v8\view\ViewPropertyAnimatorCompat.html
+* doc\companion\support\v8\view\ViewPropertyAnimatorHC.html
+* doc\companion\support\v8\view\ViewPropertyAnimatorICS.html
+* doc\companion\support\v8\view\ViewPropertyAnimatorPreHC.html
+* doc\companion\support\v8\view\animation\
+* doc\companion\support\v8\view\animation\AnimatorProxy.html
+* doc\companion\support\v8\view\animation\class-use\
+* doc\companion\support\v8\view\animation\class-use\AnimatorProxy.html
+* doc\companion\support\v8\view\animation\package-frame.html
+* doc\companion\support\v8\view\animation\package-summary.html
+* doc\companion\support\v8\view\animation\package-tree.html
+* doc\companion\support\v8\view\animation\package-use.html
+* doc\companion\support\v8\view\class-use\
+* doc\companion\support\v8\view\class-use\ContainedViewPager.html
+* doc\companion\support\v8\view\class-use\ParallaxViewPager.html
+* doc\companion\support\v8\view\class-use\SmartViewPager.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.Decor.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.ItemInfo.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.LayoutParams.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.MyAccessibilityDelegate.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.OnAdapterChangeListener.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.OnPageChangeListener.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.PageTransformer.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.SavedState.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.SimpleOnPageChangeListener.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.ViewPositionComparator.html
+* doc\companion\support\v8\view\class-use\VerticalViewPager.html
+* doc\companion\support\v8\view\class-use\ViewHelper.html
+* doc\companion\support\v8\view\class-use\ViewPropertyAnimatorCompat.html
+* doc\companion\support\v8\view\class-use\ViewPropertyAnimatorHC.html
+* doc\companion\support\v8\view\class-use\ViewPropertyAnimatorICS.html
+* doc\companion\support\v8\view\class-use\ViewPropertyAnimatorPreHC.html
+* doc\companion\support\v8\view\package-frame.html
+* doc\companion\support\v8\view\package-summary.html
+* doc\companion\support\v8\view\package-tree.html
+* doc\companion\support\v8\view\package-use.html
+* doc\companion\support\v8\widget\
+* doc\companion\support\v8\widget\ButtonCompat.html
+* doc\companion\support\v8\widget\CheckBoxCompat.html
+* doc\companion\support\v8\widget\ImageViewRecycled.html
+* doc\companion\support\v8\widget\ImageViewResizable.html
+* doc\companion\support\v8\widget\ImageViewRounded.html
+* doc\companion\support\v8\widget\SlidingPaneVerticalLayout.LayoutParams.html
+* doc\companion\support\v8\widget\SlidingPaneVerticalLayout.PanelSlideListener.html
+* doc\companion\support\v8\widget\SlidingPaneVerticalLayout.SavedState.html
+* doc\companion\support\v8\widget\SlidingPaneVerticalLayout.SimplePanelSlideListener.html
+* doc\companion\support\v8\widget\SlidingPaneVerticalLayout.html
+* doc\companion\support\v8\widget\TabManager.TabFactory.html
+* doc\companion\support\v8\widget\TabManager.TabInfo.html
+* doc\companion\support\v8\widget\TabManager.html
+* doc\companion\support\v8\widget\TextViewCompat.html
+* doc\companion\support\v8\widget\class-use\
+* doc\companion\support\v8\widget\class-use\ButtonCompat.html
+* doc\companion\support\v8\widget\class-use\CheckBoxCompat.html
+* doc\companion\support\v8\widget\class-use\ImageViewRecycled.html
+* doc\companion\support\v8\widget\class-use\ImageViewResizable.html
+* doc\companion\support\v8\widget\class-use\ImageViewRounded.html
+* doc\companion\support\v8\widget\class-use\SlidingPaneVerticalLayout.LayoutParams.html
+* doc\companion\support\v8\widget\class-use\SlidingPaneVerticalLayout.PanelSlideListener.html
+* doc\companion\support\v8\widget\class-use\SlidingPaneVerticalLayout.SavedState.html
+* doc\companion\support\v8\widget\class-use\SlidingPaneVerticalLayout.SimplePanelSlideListener.html
+* doc\companion\support\v8\widget\class-use\SlidingPaneVerticalLayout.html
+* doc\companion\support\v8\widget\class-use\TabManager.TabFactory.html
+* doc\companion\support\v8\widget\class-use\TabManager.TabInfo.html
+* doc\companion\support\v8\widget\class-use\TabManager.html
+* doc\companion\support\v8\widget\class-use\TextViewCompat.html
+* doc\companion\support\v8\widget\package-frame.html
+* doc\companion\support\v8\widget\package-summary.html
+* doc\companion\support\v8\widget\package-tree.html
+* doc\companion\support\v8\widget\package-use.html
+* doc\constant-values.html
+* doc\deprecated-list.html
+* doc\help-doc.html
+* doc\index-files\
+* doc\index-files\index-1.html
+* doc\index-files\index-10.html
+* doc\index-files\index-11.html
+* doc\index-files\index-12.html
+* doc\index-files\index-13.html
+* doc\index-files\index-14.html
+* doc\index-files\index-15.html
+* doc\index-files\index-16.html
+* doc\index-files\index-17.html
+* doc\index-files\index-18.html
+* doc\index-files\index-19.html
+* doc\index-files\index-2.html
+* doc\index-files\index-20.html
+* doc\index-files\index-21.html
+* doc\index-files\index-22.html
+* doc\index-files\index-23.html
+* doc\index-files\index-24.html
+* doc\index-files\index-25.html
+* doc\index-files\index-26.html
+* doc\index-files\index-3.html
+* doc\index-files\index-4.html
+* doc\index-files\index-5.html
+* doc\index-files\index-6.html
+* doc\index-files\index-7.html
+* doc\index-files\index-8.html
+* doc\index-files\index-9.html
+* doc\index.html
+* doc\overview-frame.html
+* doc\overview-summary.html
+* doc\overview-tree.html
+* doc\package-list
+* doc\script.js
+* doc\serialized-form.html
+* doc\stylesheet.css
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:22.2.1
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets
+* lint.xml => app\lint.xml
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

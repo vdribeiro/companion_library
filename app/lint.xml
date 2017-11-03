@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="ClickableViewAccessibility" severity="ignore">
+        <ignore path="src/android/support/v8/view/VerticalViewPager.java" />
+    </issue>
+    <issue id="RtlHardcoded">
+        <ignore path="src/android/support/v8/view/VerticalViewPager.java" />
+    </issue>
+</lint>
