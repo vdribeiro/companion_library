@@ -57,7 +57,7 @@ public class LogHelper {
 	 * @param throwable object, if it is null no stack trace will be added in the report.
 	 */
 	public static synchronized void e(String tag, String description, Throwable throwable) {
-		if ((!debugOnly) || (debugOnly && BuildConfig.DEBUG)) {
+		if (!debugOnly || BuildConfig.DEBUG) {
 			try {
 				String[] result = exceptionParser.getThrowable(tag, description, throwable);
 				Log.e(result[0], result[1]);
@@ -85,7 +85,7 @@ public class LogHelper {
 	 * @param throwable object, if it is null no stack trace will be added in the report.
 	 */
 	public static synchronized void w(String tag, String description, Throwable throwable) {
-		if ((!debugOnly) || (debugOnly && BuildConfig.DEBUG)) {
+		if (!debugOnly || BuildConfig.DEBUG) {
 			try {
 				String[] result = exceptionParser.getThrowable(tag, description, throwable);
 				Log.w(result[0], result[1]);	
@@ -113,7 +113,7 @@ public class LogHelper {
 	 * @param throwable object, if it is null no stack trace will be added in the report.
 	 */
 	public static synchronized void i(String tag, String description, Throwable throwable) {
-		if ((!debugOnly) || (debugOnly && BuildConfig.DEBUG)) {
+		if (!debugOnly || BuildConfig.DEBUG) {
 			try {
 				String[] result = exceptionParser.getThrowable(tag, description, throwable);
 				Log.i(result[0], result[1]);	
@@ -141,7 +141,7 @@ public class LogHelper {
 	 * @param throwable object, if it is null no stack trace will be added in the report.
 	 */
 	public static synchronized void d(String tag, String description, Throwable throwable) {
-		if ((!debugOnly) || (debugOnly && BuildConfig.DEBUG)) {
+		if (!debugOnly || BuildConfig.DEBUG) {
 			try {
 				String[] result = exceptionParser.getThrowable(tag, description, throwable);
 				Log.d(result[0], result[1]);	
@@ -169,7 +169,7 @@ public class LogHelper {
 	 * @param throwable object, if it is null no stack trace will be added in the report.
 	 */
 	public static synchronized void v(String tag, String description, Throwable throwable) {
-		if ((!debugOnly) || (debugOnly && BuildConfig.DEBUG)) {
+		if (!debugOnly || BuildConfig.DEBUG) {
 			try {
 				String[] result = exceptionParser.getThrowable(tag, description, throwable);
 				Log.v(result[0], result[1]);

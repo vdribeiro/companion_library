@@ -41,6 +41,6 @@ public interface TypeEvaluatorCompat<T> {
      * @return A linear interpolation between the start and end values, given the
      *         <code>fraction</code> parameter.
      */
-    public T evaluate(float fraction, T startValue, T endValue);
+    T evaluate(float fraction, T startValue, T endValue);
 
 }

@@ -79,7 +79,7 @@ public class TabManager implements TabHost.OnTabChangeListener {
 		// Check to see if we already have a fragment for this tab, probably
 		// from a previously saved state.  If so, deactivate it, because our
 		// initial state is that a tab isn't shown.
-		info.fragment = (Fragment) mManager.findFragmentByTag(tag);
+		info.fragment = mManager.findFragmentByTag(tag);
 		if (info.fragment != null && !info.fragment.isDetached()) {
 			FragmentTransaction ft = mManager.beginTransaction();
 			ft.detach(info.fragment);
@@ -101,7 +101,7 @@ public class TabManager implements TabHost.OnTabChangeListener {
 			}
 			if (newTab != null) {
 				if (newTab.fragment == null) {
-					newTab.fragment = (Fragment) Fragment.instantiate(mActivity,
+					newTab.fragment = Fragment.instantiate(mActivity,
 							newTab.clss.getName(), newTab.args);
 					ft.add(mContainerId, newTab.fragment, newTab.tag);
 				} else {

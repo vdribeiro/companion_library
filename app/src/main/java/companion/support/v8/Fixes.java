@@ -16,6 +16,10 @@ public class Fixes {
 	
 	/** Log tag. */
 	public static final String TAG = Fixes.class.getSimpleName();
+
+	/** Hidden constructor to prevent instantiation. */
+	private Fixes() {
+	}
 	
 	public static void applyAll(Context context) {
 		applyPRNGFixes();

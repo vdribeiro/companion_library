@@ -1,12 +1,5 @@
 package companion.support.v8.os;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,7 +10,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.widget.ImageView;
 
-import companion.support.v8.graphics.GraphicsUtils;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import companion.support.v8.graphics.ImageUtils;
 import companion.support.v8.graphics.drawable.AsyncDrawable;
 import companion.support.v8.graphics.drawable.BitmapDrawableRecycled;
 import companion.support.v8.lang.ParsingUtils;
@@ -574,7 +574,7 @@ public class ImageWorker {
 	@SuppressLint("NewApi")
 	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight, ImageCache cache) {
 		
-		final BitmapFactory.Options options = GraphicsUtils.getBitmapOptions(res, resId, reqWidth, reqHeight, null);
+		final BitmapFactory.Options options = ImageUtils.getBitmapOptions(res, resId, reqWidth, reqHeight, null);
 		if (cache != null) {
 			// Try and find a bitmap to use for inBitmap
 			Bitmap inBitmap = cache.getBitmapFromReusableSet(options);
@@ -599,7 +599,7 @@ public class ImageWorker {
 	@SuppressLint("NewApi")
 	public static Bitmap decodeSampledBitmapFromDescriptor(FileDescriptor fileDescriptor, int reqWidth, int reqHeight, ImageCache cache) {
 		
-		final BitmapFactory.Options options = GraphicsUtils.getBitmapOptions(fileDescriptor, reqWidth, reqHeight, null);
+		final BitmapFactory.Options options = ImageUtils.getBitmapOptions(fileDescriptor, reqWidth, reqHeight, null);
 		if (cache != null) {
 			// Try and find a bitmap to use for inBitmap
 			Bitmap inBitmap = cache.getBitmapFromReusableSet(options);

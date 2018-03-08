@@ -49,6 +49,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
+import companion.support.v8.os.Utils;
 import companion.support.v8.util.LogHelper;
 
 /**
@@ -266,7 +267,7 @@ public class VerticalViewPager extends ViewGroup {
 		 * @param positionOffset Value from [0, 1) indicating the offset from the page at position.
 		 * @param positionOffsetPixels Value in pixels indicating the offset from position.
 		 */
-		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
 		/**
 		 * This method will be invoked when a new page becomes selected. Animation is not
@@ -274,7 +275,7 @@ public class VerticalViewPager extends ViewGroup {
 		 *
 		 * @param position Position index of the new selected page.
 		 */
-		public void onPageSelected(int position);
+        void onPageSelected(int position);
 
 		/**
 		 * Called when the scroll state changes. Useful for discovering when the user
@@ -286,7 +287,7 @@ public class VerticalViewPager extends ViewGroup {
 		 * @see ViewPager#SCROLL_STATE_DRAGGING
 		 * @see ViewPager#SCROLL_STATE_SETTLING
 		 */
-		public void onPageScrollStateChanged(int state);
+        void onPageScrollStateChanged(int state);
 	}
 
 	/**
@@ -329,14 +330,14 @@ public class VerticalViewPager extends ViewGroup {
 		 *                 position of the pager. 0 is front and center. 1 is one full
 		 *                 page position to the right, and -1 is one page position to the left.
 		 */
-		public void transformPage(View page, float position);
+        void transformPage(View page, float position);
 	}
 
 	/**
 	 * Used internally to monitor when adapters are switched.
 	 */
 	interface OnAdapterChangeListener {
-		public void onAdapterChanged(PagerAdapter oldAdapter, PagerAdapter newAdapter);
+		void onAdapterChanged(PagerAdapter oldAdapter, PagerAdapter newAdapter);
 	}
 
 	/**
@@ -625,11 +626,11 @@ public class VerticalViewPager extends ViewGroup {
 	}
 
 	void setChildrenDrawingOrderEnabledCompat(boolean enable) {
-		if (Build.VERSION.SDK_INT >= 7) {
+		if (Utils.hasEclairMR1()) {
 			if (mSetChildrenDrawingOrderEnabled == null) {
 				try {
 					mSetChildrenDrawingOrderEnabled = ViewGroup.class.getDeclaredMethod(
-							"setChildrenDrawingOrderEnabled", new Class[] { Boolean.TYPE });
+							"setChildrenDrawingOrderEnabled", Boolean.TYPE);
 				} catch (NoSuchMethodException e) {
 					LogHelper.e(TAG, "Can't find setChildrenDrawingOrderEnabled", e);
 				}
@@ -645,8 +646,7 @@ public class VerticalViewPager extends ViewGroup {
 	@Override
 	protected int getChildDrawingOrder(int childCount, int i) {
 		final int index = mDrawingOrder == DRAW_ORDER_REVERSE ? childCount - 1 - i : i;
-		final int result = ((LayoutParams) mDrawingOrderedChildren.get(index).getLayoutParams()).childIndex;
-		return result;
+		return ((LayoutParams) mDrawingOrderedChildren.get(index).getLayoutParams()).childIndex;
 	}
 
 	/**
@@ -1432,7 +1432,8 @@ public class VerticalViewPager extends ViewGroup {
 			final View child = getChildAt(i);
 			if (child.getVisibility() != GONE) {
 				final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-				if (lp == null || !lp.isDecor) {
+				if (lp == null) continue;
+				if (!lp.isDecor) {
 					final int heightSpec = MeasureSpec.makeMeasureSpec(
 							(int) (childHeightSize * lp.heightFactor), MeasureSpec.EXACTLY);
 					child.measure(mChildWidthMeasureSpec, heightSpec);
@@ -1564,7 +1565,7 @@ public class VerticalViewPager extends ViewGroup {
 						// Do it now that we know what we're working with.
 						lp.needsMeasure = false;
 						final int widthSpec = MeasureSpec.makeMeasureSpec(
-								(int) (width - paddingLeft - paddingRight),
+                                width - paddingLeft - paddingRight,
 								MeasureSpec.EXACTLY);
 						final int heightSpec = MeasureSpec.makeMeasureSpec(
 								(int) (childHeight * lp.heightFactor),
@@ -2605,6 +2606,9 @@ public class VerticalViewPager extends ViewGroup {
 	 */
 	@Override
 	public void addFocusables(ArrayList<View> views, int direction, int focusableMode) {
+		if (views == null) {
+			return;
+		}
 		final int focusableCount = views.size();
 
 		final int descendantFocusability = getDescendantFocusability();
@@ -2625,8 +2629,7 @@ public class VerticalViewPager extends ViewGroup {
 		// FOCUS_AFTER_DESCENDANTS and there are some descendants focusable.  this is
 		// to avoid the focus search finding layouts when a more precise search
 		// among the focusable children would be more interesting.
-		if (
-				descendantFocusability != FOCUS_AFTER_DESCENDANTS ||
+		if (descendantFocusability != FOCUS_AFTER_DESCENDANTS ||
 				// No focusable descendants
 				(focusableCount == views.size())) {
 			// Note that we can't call the superclass here, because it will
@@ -2638,9 +2641,7 @@ public class VerticalViewPager extends ViewGroup {
 					isInTouchMode() && !isFocusableInTouchMode()) {
 				return;
 			}
-			if (views != null) {
-				views.add(this);
-			}
+			views.add(this);
 		}
 	}
 

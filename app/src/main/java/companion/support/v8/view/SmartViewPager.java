@@ -59,10 +59,7 @@ public class SmartViewPager extends ViewPager {
 	
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
-		if (!isPagingEnabled) {
-			return false;
-		}
-		return super.onInterceptTouchEvent(event);
+		return isPagingEnabled && super.onInterceptTouchEvent(event);
 	}
 
 	private class XScrollDetector extends SimpleOnGestureListener {

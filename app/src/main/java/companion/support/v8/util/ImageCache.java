@@ -1,5 +1,13 @@
 package companion.support.v8.util;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.util.LruCache;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -12,16 +20,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.util.LruCache;
-
 import companion.support.v8.app.RetainFragment;
-import companion.support.v8.graphics.GraphicsUtils;
+import companion.support.v8.graphics.ImageUtils;
 import companion.support.v8.graphics.drawable.BitmapDrawableRecycled;
 import companion.support.v8.os.ImageWorker;
 import companion.support.v8.os.Storage;
@@ -160,7 +160,7 @@ public class ImageCache {
 				 */
 				@Override
 				protected int sizeOf(String key, BitmapDrawable value) {
-					final int bitmapSize = GraphicsUtils.getBitmapSize(value) / 1024;
+					final int bitmapSize = ImageUtils.getBitmapSize(value) / 1024;
 					return bitmapSize == 0 ? 1 : bitmapSize;
 				}
 			};
@@ -348,7 +348,7 @@ public class ImageCache {
 
 					if (null != item && item.isMutable()) {
 						// Check to see it the item can be used for inBitmap
-						if (GraphicsUtils.canUseForInBitmap(item, options)) {
+						if (ImageUtils.canUseForInBitmap(item, options)) {
 							bitmap = item;
 
 							// Remove from reusable set so it can't be used again

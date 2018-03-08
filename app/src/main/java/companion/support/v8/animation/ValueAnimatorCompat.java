@@ -376,7 +376,7 @@ public class ValueAnimatorCompat extends AnimatorCompat {
             return;
         }
         if (mValues == null || mValues.length == 0) {
-            setValues(new PropertyValuesHolderCompat[]{PropertyValuesHolderCompat.ofInt("", values)});
+            setValues(PropertyValuesHolderCompat.ofInt("", values));
         } else {
             PropertyValuesHolderCompat valuesHolder = mValues[0];
             valuesHolder.setIntValues(values);
@@ -404,7 +404,7 @@ public class ValueAnimatorCompat extends AnimatorCompat {
             return;
         }
         if (mValues == null || mValues.length == 0) {
-            setValues(new PropertyValuesHolderCompat[]{PropertyValuesHolderCompat.ofFloat("", values)});
+            setValues(PropertyValuesHolderCompat.ofFloat("", values));
         } else {
             PropertyValuesHolderCompat valuesHolder = mValues[0];
             valuesHolder.setFloatValues(values);
@@ -436,8 +436,8 @@ public class ValueAnimatorCompat extends AnimatorCompat {
             return;
         }
         if (mValues == null || mValues.length == 0) {
-            setValues(new PropertyValuesHolderCompat[]{PropertyValuesHolderCompat.ofObject("",
-                    (TypeEvaluatorCompat)null, values)});
+            setValues(PropertyValuesHolderCompat.ofObject("",
+                    null, values));
         } else {
             PropertyValuesHolderCompat valuesHolder = mValues[0];
             valuesHolder.setObjectValues(values);
@@ -458,8 +458,7 @@ public class ValueAnimatorCompat extends AnimatorCompat {
         int numValues = values.length;
         mValues = values;
         mValuesMap = new HashMap<String, PropertyValuesHolderCompat>(numValues);
-        for (int i = 0; i < numValues; ++i) {
-            PropertyValuesHolderCompat valuesHolder = (PropertyValuesHolderCompat) values[i];
+        for (PropertyValuesHolderCompat valuesHolder : values) {
             mValuesMap.put(valuesHolder.getPropertyName(), valuesHolder);
         }
         // New property/values/target should cause re-initialization prior to starting
@@ -491,8 +490,8 @@ public class ValueAnimatorCompat extends AnimatorCompat {
     void initAnimation() {
         if (!mInitialized) {
             int numValues = mValues.length;
-            for (int i = 0; i < numValues; ++i) {
-                mValues[i].init();
+            for (PropertyValuesHolderCompat mValue : mValues) {
+                mValue.init();
             }
             mInitialized = true;
         }
@@ -1125,7 +1124,7 @@ public class ValueAnimatorCompat extends AnimatorCompat {
                         }
                     }
                     if (mRepeatMode == REVERSE) {
-                        mPlayingBackwards = mPlayingBackwards ? false : true;
+                        mPlayingBackwards = !mPlayingBackwards;
                     }
                     mCurrentIteration += (int)fraction;
                     fraction = fraction % 1f;
@@ -1171,8 +1170,8 @@ public class ValueAnimatorCompat extends AnimatorCompat {
         fraction = mInterpolator.getInterpolation(fraction);
         mCurrentFraction = fraction;
         int numValues = mValues.length;
-        for (int i = 0; i < numValues; ++i) {
-            mValues[i].calculateValue(fraction);
+        for (PropertyValuesHolderCompat mValue : mValues) {
+            mValue.calculateValue(fraction);
         }
         if (mUpdateListeners != null) {
             int numListeners = mUpdateListeners.size();
@@ -1219,7 +1218,7 @@ public class ValueAnimatorCompat extends AnimatorCompat {
      * frame, after the current frame's values have been calculated for that
      * <code>ValueAnimator</code>.
      */
-    public static interface AnimatorUpdateListener {
+    public interface AnimatorUpdateListener {
         /**
          * <p>Notifies the occurrence of another frame of the animation.</p>
          *
@@ -1255,12 +1254,12 @@ public class ValueAnimatorCompat extends AnimatorCompat {
 
     @Override
     public String toString() {
-        String returnVal = "ValueAnimator@" + Integer.toHexString(hashCode());
+        StringBuilder returnVal = new StringBuilder("ValueAnimator@" + Integer.toHexString(hashCode()));
         if (mValues != null) {
-            for (int i = 0; i < mValues.length; ++i) {
-                returnVal += "\n    " + mValues[i].toString();
+            for (PropertyValuesHolderCompat mValue : mValues) {
+                returnVal.append("\n    ").append(mValue.toString());
             }
         }
-        return returnVal;
+        return returnVal.toString();
     }
 }

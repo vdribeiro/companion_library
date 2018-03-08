@@ -88,10 +88,10 @@ class KeyframeSet {
         boolean hasFloat = false;
         boolean hasInt = false;
         boolean hasOther = false;
-        for (int i = 0; i < numKeyframes; ++i) {
-            if (keyframes[i] instanceof FloatKeyframe) {
+        for (KeyframeCompat keyframe : keyframes) {
+            if (keyframe instanceof FloatKeyframe) {
                 hasFloat = true;
-            } else if (keyframes[i] instanceof IntKeyframe) {
+            } else if (keyframe instanceof IntKeyframe) {
                 hasInt = true;
             } else {
                 hasOther = true;

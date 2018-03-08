@@ -1,5 +1,7 @@
 package companion.support.v8.util;
 
+import android.support.annotation.NonNull;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -187,7 +189,7 @@ public final class DiskLruCache implements Closeable {
 	 * there.
 	 *
 	 * @param directory a writable directory
-	 * @param appVersion
+	 * @param appVersion version number.
 	 * @param valueCount the number of values per cache entry. Must be positive.
 	 * @param maxSize the maximum number of bytes this cache should use to store
 	 * @throws IOException if reading or writing the cache directory fails
@@ -376,7 +378,7 @@ public final class DiskLruCache implements Closeable {
 		try {
 			final MessageDigest mDigest = MessageDigest.getInstance("MD5");
 			mDigest.update(key.getBytes());
-			cacheKey = ParsingUtils.bytesToHex(mDigest.digest(), 2);
+			cacheKey = ParsingUtils.bytesToHexadecimal(mDigest.digest(), 2);
 		} catch (NoSuchAlgorithmException e) {
 			cacheKey = String.valueOf(key.hashCode());
 		}
@@ -446,7 +448,7 @@ public final class DiskLruCache implements Closeable {
 		}
 
 		redundantOpCount++;
-		journalWriter.append(READ + ' ' + key + '\n');
+		journalWriter.append(READ + ' ').append(key).append(String.valueOf('\n'));
 		if (journalRebuildRequired()) {
 			executorService.submit(cleanupCallable);
 		}
@@ -688,7 +690,7 @@ public final class DiskLruCache implements Closeable {
 		}
 
 		redundantOpCount++;
-		journalWriter.append(REMOVE + ' ' + key + '\n');
+		journalWriter.append(REMOVE + ' ').append(key).append(String.valueOf('\n'));
 		lruEntries.remove(key);
 
 		if (journalRebuildRequired()) {
@@ -845,7 +847,7 @@ public final class DiskLruCache implements Closeable {
 				}
 			}
 
-			@Override public void write(byte[] buffer, int offset, int length) {
+			@Override public void write(@NonNull byte[] buffer, int offset, int length) {
 				try {
 					out.write(buffer, offset, length);
 				} catch (IOException e) {

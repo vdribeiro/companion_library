@@ -31,11 +31,8 @@ public class Storage {
 	 */
 	public static boolean isWritable() {
 		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equalsIgnoreCase(state)) {
-			return true;
-		}
-		return false;
-	}
+        return Environment.MEDIA_MOUNTED.equalsIgnoreCase(state);
+    }
 
 	/** Check if the primary "external" storage device is readable.
 	 * 
@@ -43,11 +40,8 @@ public class Storage {
 	 */
 	public static boolean isReadable() {
 		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equalsIgnoreCase(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equalsIgnoreCase(state)) {
-			return true;
-		}
-		return false;
-	}
+        return Environment.MEDIA_MOUNTED.equalsIgnoreCase(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equalsIgnoreCase(state);
+    }
 
 	/** Get internal storage absolute path.
 	 * @param context of the caller.
@@ -155,7 +149,7 @@ public class Storage {
 	/**
 	 * Get parent path.
 	 *
-	 * @param dbfile absolute path.
+	 * @param dbFile absolute path.
 	 * @return parent path.
 	 */
 	public static String getParent(String dbFile) {
@@ -313,12 +307,16 @@ public class Storage {
 		}
 
 		try {
-			in.close();
+			if (in != null) {
+				in.close();
+			}
 		} catch (Exception e) {
 			// Ignore
 		}
 		try {
-			out.close();
+			if (out != null) {
+				out.close();
+			}
 		} catch (Exception e) {
 			// Ignore
 		}
@@ -329,10 +327,8 @@ public class Storage {
 	/**
 	 * Copies a file to new location, overwriting existing files.
 	 * 
-	 * @param sourcePath
-	 *            path of source file
-	 * @param destPath
-	 *            path of destination file
+	 * @param sourcePath path of source file
+	 * @param destPath path of destination file
 	 * @return true if operation is successful, false otherwise.
 	 */
 	public static boolean copyFile(String sourcePath, String destPath) {

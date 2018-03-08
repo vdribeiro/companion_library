@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 
@@ -40,6 +41,7 @@ public class ExceptionParser {
 		this(context, additionalPackages, true);
 	}
 
+	@SuppressLint("WrongConstant")
 	public void setIncludedPackages(Context context, Collection<String> additionalPackages) {
 		this.includedPackages.clear();
 		Set<String> packages = new HashSet();
@@ -52,7 +54,8 @@ public class ExceptionParser {
 			try {
 				String appPackage = context.getApplicationContext().getPackageName();
 				this.includedPackages.add(appPackage);
-				ai = context.getApplicationContext().getPackageManager().getPackageInfo(appPackage, 15).activities;
+				int flags = 15;
+				ai = context.getApplicationContext().getPackageManager().getPackageInfo(appPackage, flags).activities;
 				if (ai != null) {
 					ActivityInfo[] aInfo = ai;
 					int len = aInfo.length;
@@ -139,7 +142,7 @@ public class ExceptionParser {
 		}
 
 		Object[] r4ObjectA;
-		descriptionBuilder.append("\n" + cause.getClass().getSimpleName());
+		descriptionBuilder.append("\n").append(cause.getClass().getSimpleName());
 		
 		if (element != null) {
 			String[] classNameParts = element.getClassName().split("\\.");
@@ -175,7 +178,9 @@ public class ExceptionParser {
 		try {
 			Throwable cause = getCause(throwable);
 			description = getDescription(cause, getBestStackTraceElement(cause), threadName);
-		} catch (Exception unimportantException) {}
+		} catch (Exception unimportantException) {
+			// Ignore
+		}
 
 		return description;
 	}

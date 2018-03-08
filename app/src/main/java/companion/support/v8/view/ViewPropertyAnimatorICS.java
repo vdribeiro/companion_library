@@ -2,11 +2,13 @@ package companion.support.v8.view;
 
 import java.lang.ref.WeakReference;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.animation.Interpolator;
 
 import companion.support.v8.animation.AnimatorCompat.AnimatorListener;
 
+@SuppressLint("NewApi")
 class ViewPropertyAnimatorICS extends ViewPropertyAnimatorCompat {
     /**
      * A value to be returned when the WeakReference holding the native implementation

@@ -2,6 +2,8 @@ package companion.support.v8.view;
 
 import static companion.support.v8.view.animation.AnimatorProxy.NEEDS_PROXY;
 import static companion.support.v8.view.animation.AnimatorProxy.wrap;
+
+import android.annotation.SuppressLint;
 import android.view.View;
 
 public final class ViewHelper {
@@ -175,6 +177,7 @@ public final class ViewHelper {
         }
     }
 
+    @SuppressLint("NewApi")
     private static final class Honeycomb {
         static float getAlpha(View view) {
             return view.getAlpha();

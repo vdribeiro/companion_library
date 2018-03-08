@@ -257,7 +257,7 @@ public class PropertyValuesHolderCompat implements Cloneable {
 		else {
 			PropertyValuesHolderCompat pvh = new PropertyValuesHolderCompat(propertyName);
 			pvh.mKeyframeSet = keyframeSet;
-			pvh.mValueType = ((KeyframeCompat)values[0]).getType();
+			pvh.mValueType = values[0].getType();
 			return pvh;
 		}
 	}
@@ -288,7 +288,7 @@ public class PropertyValuesHolderCompat implements Cloneable {
 		else {
 			PropertyValuesHolderCompat pvh = new PropertyValuesHolderCompat(property);
 			pvh.mKeyframeSet = keyframeSet;
-			pvh.mValueType = ((KeyframeCompat)values[0]).getType();
+			pvh.mValueType = values[0].getType();
 			return pvh;
 		}
 	}
@@ -337,9 +337,9 @@ public class PropertyValuesHolderCompat implements Cloneable {
 	public void setKeyframes(KeyframeCompat... values) {
 		int numKeyframes = values.length;
 		KeyframeCompat keyframes[] = new KeyframeCompat[Math.max(numKeyframes,2)];
-		mValueType = ((KeyframeCompat)values[0]).getType();
+		mValueType = values[0].getType();
 		for (int i = 0; i < numKeyframes; ++i) {
-			keyframes[i] = (KeyframeCompat)values[i];
+			keyframes[i] = values[i];
 		}
 		mKeyframeSet = new KeyframeSet(keyframes);
 	}

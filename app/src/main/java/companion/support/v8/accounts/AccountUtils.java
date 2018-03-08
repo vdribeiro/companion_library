@@ -100,8 +100,8 @@ public class AccountUtils {
 			return false;
 		}
 
-		for (int i = 0; i < accounts.length; i++) {
-			if (gUser.equalsIgnoreCase(accounts[i])) {
+		for (String account : accounts) {
+			if (gUser.equalsIgnoreCase(account)) {
 				return true;
 			}
 		}

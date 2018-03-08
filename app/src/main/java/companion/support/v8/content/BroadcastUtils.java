@@ -21,10 +21,7 @@ public class BroadcastUtils {
 		Intent intent = new Intent(context, cls);
 		intent.setAction(action);
 
-		if (PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null) {
-			return true;
-		}
-		return false;
-	}
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null;
+    }
 	
 }

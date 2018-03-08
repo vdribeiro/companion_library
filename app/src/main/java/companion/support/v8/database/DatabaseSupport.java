@@ -39,11 +39,8 @@ public class DatabaseSupport {
 			return null;
 		}
 
-		StringBuilder s = new StringBuilder();
-		s.append("INSERT INTO ").append(tableName);
-		s.append(createValuesExpr(columnNames));
-
-		return s.toString();
+		return "INSERT INTO " + tableName +
+				createValuesExpr(columnNames);
 	}
 
 	/** Creates an INSERT OR IGNORE string.
@@ -56,11 +53,8 @@ public class DatabaseSupport {
 			return null;
 		}
 
-		final StringBuilder s = new StringBuilder();
-		s.append("INSERT OR IGNORE INTO ").append(tableName);
-		s.append(createValuesExpr(columnNames));
-
-		return s.toString();
+		return "INSERT OR IGNORE INTO " + tableName +
+				createValuesExpr(columnNames);
 	}
 
 	/** Creates an INSERT OR REPLACE string.
@@ -73,11 +67,8 @@ public class DatabaseSupport {
 			return null;
 		}
 
-		final StringBuilder s = new StringBuilder();
-		s.append("INSERT OR REPLACE INTO ").append(tableName);
-		s.append(createValuesExpr(columnNames));
-
-		return s.toString();
+		return "INSERT OR REPLACE INTO " + tableName +
+				createValuesExpr(columnNames);
 	}
 
 	/** Creates a VALUES expression.
@@ -100,7 +91,7 @@ public class DatabaseSupport {
 		s.delete(length - 2, length);
 		s.append(") VALUES( ");
 
-		for (int i = 0; i < columnNames.length; i++) {
+		for (String columnName : columnNames) {
 			s.append(" ? ,");
 		}
 
@@ -221,12 +212,12 @@ public class DatabaseSupport {
 		if (assetsPath!=null && assetsPath.length()>0) {
 			assetsPath += File.separator;
 		} else {
-			assetsPath = new String();
+			assetsPath = "";
 		}
 		if (destination!=null && destination.length()>0) {
 			destination += File.separator;
 		} else {
-			destination = new String();
+			destination = "";
 		}
 
 		try {
@@ -245,17 +236,23 @@ public class DatabaseSupport {
 		} finally {
 			// Close the streams
 			try {
-				inputStream.close();
+				if (inputStream != null) {
+					inputStream.close();
+				}
 			} catch (Exception e) {
 				// Ignore
 			}
 			try {
-				outputStream.flush();
+				if (outputStream != null) {
+					outputStream.flush();
+				}
 			} catch (Exception e) {
 				// Ignore
 			}
 			try {
-				outputStream.close();
+				if (outputStream != null) {
+					outputStream.close();
+				}
 			} catch (Exception e) {
 				// Ignore
 			}
@@ -284,17 +281,17 @@ public class DatabaseSupport {
 		if (assetsPath!=null && assetsPath.length()>0) {
 			assetsPath += File.separator;
 		} else {
-			assetsPath = new String();
+			assetsPath = "";
 		}
 		if (destination!=null && destination.length()>0) {
 			destination += File.separator;
 		} else {
-			destination = new String();
+			destination = "";
 		}
 		if (extension!=null && extension.length()>0) {
 			extension = "." + extension;
 		} else {
-			extension = new String();
+			extension = "";
 		}
 
 		try {
@@ -319,20 +316,40 @@ public class DatabaseSupport {
 		} finally {
 			// Close the streams
 			try {
-				inputStream.close();
-			} catch (Exception e) {}
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (Exception e) {
+				// Ignore
+			}
 			try {
-				outputStream.flush();
-			} catch (Exception e) {}
+				if (outputStream != null) {
+					outputStream.flush();
+				}
+			} catch (Exception e) {
+				// Ignore
+			}
 			try {
-				outputStream.close();
-			} catch (Exception e) {}
+				if (outputStream != null) {
+					outputStream.close();
+				}
+			} catch (Exception e) {
+				// Ignore
+			}
 			try {
-				bos.flush();
-			} catch (Exception e) {}
+				if (bos != null) {
+					bos.flush();
+				}
+			} catch (Exception e) {
+				// Ignore
+			}
 			try {
-				bos.close();
-			} catch (Exception e) {}
+				if (bos != null) {
+					bos.close();
+				}
+			} catch (Exception e) {
+				// Ignore
+			}
 		}
 
 		return true;

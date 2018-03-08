@@ -309,7 +309,7 @@ public class SensorUtils {
 			final float[] temp = new float[16];
 			// we don't expect to have a lot of contention
 			if (remapCoordinateSystemImpl(X, Y, temp)) {
-				for (int i=0 ; i<outR.length ; i++) {
+				for (int i=0 ; i < outR.length ; i++) {
 					outR[i] = temp[i];
 				}
 				return true;

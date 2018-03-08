@@ -3,7 +3,30 @@
         
     </style><style name="AppTheme" parent="AppBaseTheme">
         
-    </style></file><file path="C:\Users\Vitor Ribeiro\GitHub\companion_library\app\src\main\res\values-v11\styles.xml" qualifiers="v11"><style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+    </style></file><file path="C:\Users\Vitor Ribeiro\GitHub\companion_library\app\src\main\res\values-v11\attrs.xml" qualifiers="v11"><declare-styleable name="CircleImageView">
+        <attr format="dimension" name="civ_border_width"/>
+        <attr format="color" name="civ_border_color"/>
+        <attr format="boolean" name="civ_border_overlay"/>
+        <attr format="color" name="civ_fill_color"/>
+    </declare-styleable><declare-styleable name="DonutProgressView">
+        <attr format="float" name="donut_progress"/>
+        <attr format="integer" name="donut_max"/>
+        <attr format="integer" name="donut_circle_starting_degree"/>
+
+        <attr format="dimension" name="donut_finished_stroke_width"/>
+        <attr format="dimension" name="donut_unfinished_stroke_width"/>
+        <attr format="color" name="donut_unfinished_color"/>
+        <attr format="color" name="donut_finished_color"/>
+        <attr format="color" name="donut_background_color"/>
+
+        <attr format="boolean" name="donut_show_progress"/>
+        <attr format="boolean" name="donut_show_text"/>
+
+        <attr format="dimension" name="donut_text_size"/>
+        <attr format="color" name="donut_text_color"/>
+        <attr format="string" name="donut_text"/>
+
+    </declare-styleable></file><file path="C:\Users\Vitor Ribeiro\GitHub\companion_library\app\src\main\res\values-v11\styles.xml" qualifiers="v11"><style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         
     </style></file><file path="C:\Users\Vitor Ribeiro\GitHub\companion_library\app\src\main\res\values-v14\styles.xml" qualifiers="v14"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         

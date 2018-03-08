@@ -5,6 +5,7 @@ import java.math.BigInteger;
 
 import org.json.JSONObject;
 
+import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import companion.support.v8.util.ArraysUtils;
@@ -72,8 +73,7 @@ public class ParsingUtils {
 	/**
 	 * Convert a byte array to an unsigned integer.
 	 * 
-	 * @param b
-	 *            bytes to convert.
+	 * @param b bytes to convert.
 	 * @return corresponding integer.
 	 */
 	public static int bytesToUnsignedInt(byte[] b) {
@@ -111,7 +111,7 @@ public class ParsingUtils {
 	}
 
 	/** Convert a boolean array to a byte array.
-	 * @param value boolean array to convert.
+	 * @param bools boolean array to convert.
 	 * @return converted byte array.
 	 */
 	public static byte[] booleanArrayToBytes(boolean[] bools) {
@@ -122,13 +122,13 @@ public class ParsingUtils {
 		int size = bools.length;
 		byte[] bytes = new byte[size];
 		for (int i = 0; i < size; i++) {
-			bytes[i] = (byte) ((bools[i]==true) ? 1 : 0);
+			bytes[i] = (byte) ((bools[i]) ? 1 : 0);
 		}
 		return bytes;
 	}
 
 	/** Convert a byte array to a boolean array.
-	 * @param b bytes to convert.
+	 * @param bytes to convert.
 	 * @return corresponding boolean array.
 	 */
 	public static boolean[] bytesToBoleanArray(byte[] bytes) {
@@ -139,7 +139,7 @@ public class ParsingUtils {
 		int size = bytes.length;
 		boolean[] bools = new boolean[size];
 		for (int i = 0; i < size; i++) {
-			bools[i] = (bytes[i]==1) ? true : false;
+			bools[i] = bytes[i] == 1;
 		}
 		return bools;
 	}
@@ -172,24 +172,24 @@ public class ParsingUtils {
 			return null;
 		}
 
-		String str = new String();
+		StringBuilder str = new StringBuilder();
 
 		// parse response
 		for (byte b : buffer) {
-			String response = Integer.toBinaryString((short) ((short) b & 0xff));
+			StringBuilder response = new StringBuilder(Integer.toBinaryString((short) ((short) b & 0xff)));
 
 			// we need 8 bits, so if the response is not of size 8, zeros are added on the left
 			int size = 8-response.length();
-			if (size<0) {
+			if (size < 0) {
 				size=0;
 			}
 			for (int i = 0; i<size; i++) {
-				response = "0" + response;
+				response.insert(0, "0");
 			}
-			str = str + response;
+			str.append(response);
 		}
 
-		return str;
+		return str.toString();
 	}
 
 	/** Convert a byte array to a long.
@@ -203,21 +203,21 @@ public class ParsingUtils {
 
 		int count = 0;
 		int ret = 0;
-		byte[] newbytes = b;
+		byte[] newBytes = b;
 		if (b.length>8) {
-			newbytes = ArraysUtils.truncateLeftBytes(b, 8);
+			newBytes = ArraysUtils.truncateLeftBytes(b, 8);
 		}
 		if (b.length<8) {
 			byte sign = (byte) (b[0]<0? 0xFF: 0x00);
 			try {
-				newbytes = new byte[]{sign, sign, sign, sign};
-				System.arraycopy(b, 0, newbytes, 8-b.length, b.length);
+				newBytes = new byte[]{sign, sign, sign, sign};
+				System.arraycopy(b, 0, newBytes, 8-b.length, b.length);
 			} catch (Exception e) {
 				return 0;
 			}
 		}
-		for (int i = newbytes.length; i > 0; i--) {
-			ret += (newbytes[i - 1] & 0xFF) << count;
+		for (int i = newBytes.length; i > 0; i--) {
+			ret += (newBytes[i - 1] & 0xFF) << count;
 			count += 8;
 		}
 		return ret;
@@ -262,15 +262,15 @@ public class ParsingUtils {
 	 * @param str string to convert.
 	 * @return corresponding hexadecimal string.
 	 */
-	public static String stringToHex(String str){
+	public static String stringToHexadecimal(String str){
 		if (str==null) {
 			return null;
 		}
 
 		char[] chars = str.toCharArray();
-		StringBuffer hex = new StringBuffer();
-		for(int i = 0; i < chars.length; i++){
-			hex.append(Integer.toHexString((int)chars[i]));
+		StringBuilder hex = new StringBuilder();
+		for (char aChar : chars) {
+			hex.append(Integer.toHexString((int) aChar));
 		}
 
 		return hex.toString();
@@ -280,7 +280,7 @@ public class ParsingUtils {
 	 * @param hex hexadecimal to convert.
 	 * @return corresponding string.
 	 */
-	public static String hexToString(String hex){
+	public static String hexadecimalToString(String hex){
 		if (hex==null) {
 			return null;
 		}
@@ -288,7 +288,7 @@ public class ParsingUtils {
 		StringBuilder sb = new StringBuilder();
 		StringBuilder temp = new StringBuilder();
 
-		if (hex.length() % 2 == 0) {
+		if (!(hex.length() % 2 == 0)) {
 			// odd
 		} else {
 			// even
@@ -296,7 +296,7 @@ public class ParsingUtils {
 		}
 
 		// split into two characters
-		for( int i=0; i<hex.length()-1; i+=2 ){
+		for(int i=0; i<hex.length()-1; i+=2){
 
 			// grab the hex in pairs
 			String output = hex.substring(i, (i + 2));
@@ -312,12 +312,48 @@ public class ParsingUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Parse string to integer.
+	 * @param string to parse.
+	 * @return integer.
+	 */
+	public static int stringToInt(String string) {
+		int intValue;
+		try {
+			intValue = Integer.parseInt(string);
+		} catch (Throwable t) {
+			intValue = -1;
+		}
+
+		return intValue;
+	}
+
+	/**
+	 * Flatten a string array.
+	 * @param array to flatten.
+	 * @return string.
+	 */
+	public static String stringArrayToString(@NonNull String[] array) {
+		StringBuilder string = new StringBuilder();
+
+		for (String s : array) {
+			string.append(s).append(";");
+		}
+
+		int len = string.length();
+		if (len > 0 && string.charAt(len - 1) == ';') {
+			string = new StringBuilder(string.substring(0, string.length() - 1));
+		}
+
+		return string.toString();
+	}
+
 	/** Convert bytes to hexadecimal form.
 	 * @param bytes bytes to convert.
 	 * @param algorithm to use.
 	 * @return corresponding hexadecimal string.
 	 */
-	public static String bytesToHex(byte[] bytes, int algorithm) {
+	public static String bytesToHexadecimal(byte[] bytes, int algorithm) {
 		if (bytes==null) {
 			return null;
 		}
@@ -326,14 +362,14 @@ public class ParsingUtils {
 		if (algorithm==1) {
 			String hex = "0123456789ABCDEF";
 			StringBuffer buffer = new StringBuffer(2 * bytes.length);
-			for (int i = 0; i < bytes.length; i++) {
-				buffer.append(hex.charAt((bytes[i] >> 4) & 0x0f)).append(hex.charAt(bytes[i] & 0x0f));
+			for (byte aByte : bytes) {
+				buffer.append(hex.charAt((aByte >> 4) & 0x0f)).append(hex.charAt(aByte & 0x0f));
 			}
 			result = buffer.toString();
 		} else if (algorithm==2) {
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < bytes.length; i++) {
-				String hex = Integer.toHexString(0xFF & bytes[i]);
+			for (byte aByte : bytes) {
+				String hex = Integer.toHexString(0xFF & aByte);
 				if (hex.length() == 1) {
 					sb.append('0');
 				}
@@ -352,7 +388,7 @@ public class ParsingUtils {
 	 * @param algorithm to use.
 	 * @return converted bytes.
 	 */
-	public static byte[] hexToBytes(String hex, int algorithm) {
+	public static byte[] hexadecimalToBytes(String hex, int algorithm) {
 		if (hex==null) {
 			return null;
 		}
@@ -388,6 +424,7 @@ public class ParsingUtils {
 				result = buff.toByteArray();
 				buff.close();
 			} catch (Exception e) {
+				// Ignore
 			}
 		} else {
 			int len = hex.length() / 2;

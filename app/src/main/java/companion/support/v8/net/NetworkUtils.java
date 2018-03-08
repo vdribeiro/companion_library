@@ -72,7 +72,9 @@ public class NetworkUtils {
 				if (in != null) {
 					in.close();
 				}
-			} catch (final IOException e) {}
+			} catch (final IOException e) {
+				// Ignore
+			}
 		}
 		return false;
 	}
@@ -90,7 +92,7 @@ public class NetworkUtils {
 
 	/** Use reflection to enable HTTP response caching on devices that support it.
 	 * @param context of the caller.
-	 * @throws Exception
+	 * @throws Exception on error.
 	 */
 	public static void enableHttpResponseCache(Context context) throws Exception {
 		long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
@@ -110,7 +112,9 @@ public class NetworkUtils {
 			ConnectivityManager.setProcessDefaultNetwork(null);
 		} else {
 			ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-			cm.setNetworkPreference(ConnectivityManager.DEFAULT_NETWORK_PREFERENCE);
+			if (cm != null) {
+				cm.setNetworkPreference(ConnectivityManager.DEFAULT_NETWORK_PREFERENCE);
+			}
 		}
 	}
 
@@ -122,7 +126,9 @@ public class NetworkUtils {
 	@SuppressWarnings("deprecation")
 	public static void setToWifiNetwork(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		cm.setNetworkPreference(ConnectivityManager.TYPE_WIFI);
+		if (cm != null) {
+			cm.setNetworkPreference(ConnectivityManager.TYPE_WIFI);
+		}
 	}
 
 	/** Set the preferred network to Mobile.
@@ -133,7 +139,9 @@ public class NetworkUtils {
 	@SuppressWarnings("deprecation")
 	public static void setToMobileNetwork(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		cm.setNetworkPreference(ConnectivityManager.TYPE_MOBILE);
+		if (cm != null) {
+			cm.setNetworkPreference(ConnectivityManager.TYPE_MOBILE);
+		}
 	}
 
 	/** Get whether the network connectivity exists and it is possible to establish connections 
@@ -149,6 +157,10 @@ public class NetworkUtils {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		boolean[] state = new boolean[] {false, false, false, false, false, false};
+
+		if (cm == null) {
+			return state;
+		}
 
 		if (Utils.hasHoneycombMR2()) {
 			NetworkInfo ethernet = cm.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
@@ -181,6 +193,9 @@ public class NetworkUtils {
 	 */
 	public static boolean getWifiStatus(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (cm == null) {
+			return false;
+		}
 
 		boolean state = false;
 
@@ -199,6 +214,9 @@ public class NetworkUtils {
 	 */
 	public static boolean getMobileStatus(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (cm == null) {
+			return false;
+		}
 
 		boolean state = false;
 
@@ -215,12 +233,12 @@ public class NetworkUtils {
 	 */
 	public static boolean isInternetAvailable(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if (netInfo != null && netInfo.isAvailable() && netInfo.isConnected()) {
-			return true;
+		if (cm == null) {
+			return false;
 		}
-		return false;
-	}
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isAvailable() && netInfo.isConnected();
+    }
 
 	/** Checks Internet availability by sending a ping to Google.
 	 *  

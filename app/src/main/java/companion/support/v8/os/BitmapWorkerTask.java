@@ -2,6 +2,7 @@ package companion.support.v8.os;
 
 import java.lang.ref.WeakReference;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -28,8 +29,8 @@ public abstract class BitmapWorkerTask extends AsyncTaskCompat<Object, Object, O
 
 	/**
 	 * @param resources to access.
-	 * @param loadingBitmap
-	 * @param imageView
+	 * @param loadingBitmap bitmap.
+	 * @param imageView view.
 	 * @param fadeIn sets if the image will fade-in once it has been loaded by the background thread.
 	 */
 	public BitmapWorkerTask(Resources resources, Bitmap loadingBitmap, ImageView imageView, boolean fadeIn) {
@@ -87,15 +88,22 @@ public abstract class BitmapWorkerTask extends AsyncTaskCompat<Object, Object, O
 	 * @param imageView placeholder ImageView.
 	 * @param drawable placeholder Drawable.
 	 */
-	@SuppressWarnings("deprecation")
+	@SuppressLint("ResourceAsColor")
+    @SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	private void setImageDrawable(ImageView imageView, Drawable drawable) {
 		if (mFadeInBitmap) {
 			// Transition drawable with a transparent drawable and the final drawable
+			ColorDrawable colorDrawable;
+			try {
+				int color = imageView.getContext().getResources().getColor(android.R.color.transparent);
+				colorDrawable = new ColorDrawable(color);
+			} catch (Exception e) {
+				colorDrawable = new ColorDrawable(android.R.color.transparent);
+			}
+
 			final TransitionDrawable td = new TransitionDrawable(
-				new Drawable[] {
-					new ColorDrawable(android.R.color.transparent), drawable
-				}
+				new Drawable[] {colorDrawable, drawable}
 			);
 
 			// Set background to loading bitmap

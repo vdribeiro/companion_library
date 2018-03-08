@@ -20,8 +20,7 @@ public class RetainFragment extends Fragment {
 	 * @return a new instance of this fragment.
 	 */
 	public static RetainFragment getInstance() {
-		RetainFragment fragment = new RetainFragment();
-		return fragment;
+		return new RetainFragment();
 	}
 
 	/**

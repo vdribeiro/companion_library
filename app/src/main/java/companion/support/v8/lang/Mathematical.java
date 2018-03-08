@@ -27,7 +27,7 @@ public class Mathematical {
 	 * @param value to convert.
 	 * @return converted value.
 	 */
-	public static double kilometerstoMeters(double value) {
+	public static double kilometersToMeters(double value) {
 		return (value * 1000d);
 	}
 
@@ -95,41 +95,39 @@ public class Mathematical {
 	/** 
 	 * Calculates Speed.
 	 * 
-	 * @param idistance in meters.
-	 * @param fdistance in meters.
-	 * @param itime in seconds.
-	 * @param ftime in seconds.
+	 * @param iDistance in meters.
+	 * @param fDistance in meters.
+	 * @param iTime in seconds.
+	 * @param fTime in seconds.
 	 * @return speed in meters/second. 
 	 */
-	public static double calculateSpeed(double idistance, double fdistance, double itime, double ftime) {
-		if (Double.isNaN(idistance) || Double.isNaN(fdistance) || Double.isNaN(itime) || Double.isNaN(ftime)) {
+	public static double calculateSpeed(double iDistance, double fDistance, double iTime, double fTime) {
+		if (Double.isNaN(iDistance) || Double.isNaN(fDistance) || Double.isNaN(iTime) || Double.isNaN(fTime)) {
 			return Double.NaN;
 		}
 
-		double deltaDistance = (fdistance - idistance);
-		double deltaTime = (ftime - itime);
-		double speed = (deltaDistance / deltaTime);
-		return speed;
+		double deltaDistance = (fDistance - iDistance);
+		double deltaTime = (fTime - iTime);
+		return (deltaDistance / deltaTime);
 	}
 
 	/** 
 	 * Calculates Acceleration.
 	 * 
-	 * @param ispeed in meters/second. 
-	 * @param fspeed in meters/second.
-	 * @param itime in seconds.
-	 * @param ftime in seconds.
+	 * @param iSpeed in meters/second.
+	 * @param fSpeed in meters/second.
+	 * @param iTime in seconds.
+	 * @param fTime in seconds.
 	 * @return acceleration in meters/second^2. 
 	 */
-	public static double calculateAcceleration(double ispeed, double fspeed, double itime, double ftime) {
-		if (Double.isNaN(ispeed) || Double.isNaN(fspeed) || Double.isNaN(itime) || Double.isNaN(ftime)) {
+	public static double calculateAcceleration(double iSpeed, double fSpeed, double iTime, double fTime) {
+		if (Double.isNaN(iSpeed) || Double.isNaN(fSpeed) || Double.isNaN(iTime) || Double.isNaN(fTime)) {
 			return Double.NaN;
 		}
 
-		double deltaSpeed = (fspeed - ispeed);
-		double deltaTime = (ftime - itime);
-		double acceleration = (deltaSpeed / deltaTime);
-		return acceleration;
+		double deltaSpeed = (fSpeed - iSpeed);
+		double deltaTime = (fTime - iTime);
+		return (deltaSpeed / deltaTime);
 	}
 
 	/** 
@@ -147,31 +145,30 @@ public class Mathematical {
 	/** 
 	 * Calculates Inclination.
 	 * 
-	 * @param ialtitude in meters.
-	 * @param faltitude in meters.
-	 * @param idistance in meters.
-	 * @param fdistance in meters.
+	 * @param iAltitude in meters.
+	 * @param fAltitude in meters.
+	 * @param iDistance in meters.
+	 * @param fDistance in meters.
 	 * @return inclination in degrees.
 	 */
-	public static double calculateInclination(double ialtitude, double faltitude, double idistance, double fdistance) {
-		if (Double.isNaN(ialtitude) || Double.isNaN(faltitude) || Double.isNaN(idistance) || Double.isNaN(fdistance)) {
+	public static double calculateInclination(double iAltitude, double fAltitude, double iDistance, double fDistance) {
+		if (Double.isNaN(iAltitude) || Double.isNaN(fAltitude) || Double.isNaN(iDistance) || Double.isNaN(fDistance)) {
 			return Double.NaN;
 		}
 
-		double deltaAltitude = (ialtitude - faltitude);
-		double deltaDistance = (idistance - fdistance);
-		double inclination = (double) (Math.atan(deltaAltitude / deltaDistance) * (180d / Math.PI));
-		return inclination;
+		double deltaAltitude = (iAltitude - fAltitude);
+		double deltaDistance = (iDistance - fDistance);
+		return Math.atan(deltaAltitude / deltaDistance) * (180d / Math.PI);
 	}
 
 	/** 
 	 * Calculates Inclination as the Least Square Error slope between the surrounding altitudes.
 	 * 
-	 * @param altitude in meters. 
+	 * @param altitude in meters.
 	 * @param distance in meters.
 	 * @param range is the maximum allowed distance between neighbors.
 	 * @param window is the starting distance between neighbors.
-	 * @return inclination in degrees. 
+	 * @return inclination in degrees.
 	 */
 	public static double[][] calculateInclination(double[] altitude, double[] distance, double range, double window) {
 		// The distance should be the one traveled so far: monotonic and sorted
@@ -181,11 +178,14 @@ public class Mathematical {
 
 		// calculate the inclination as the LeasSquareError-slope between the surrounding altitudes
 		double[][] filteredInclination = slopeLeastSquares(distance, altitude, range, window, true);
+		if (filteredInclination == null) {
+			return new double[][]{};
+		}
 
 		// transform inclination from Altitude/Distance (m/m) to Degrees.
 		for (int i = 0; i < filteredInclination.length; i++) {
 			try {
-				filteredInclination[i][0] = (double) (Math.atan(filteredInclination[i][0]) * (180.0d / Math.PI));
+				filteredInclination[i][0] = Math.atan(filteredInclination[i][0]) * (180.0d / Math.PI);
 			} catch (Exception e) {
 				filteredInclination[i][0] = Double.NaN;
 			}
@@ -195,13 +195,13 @@ public class Mathematical {
 	}
 	
 	/** Calculate the quadratic mean of an array of values.
-	 * @param values
-	 * @return root mean squared
+	 * @param values to calculate.
+	 * @return root mean squared.
 	 */
 	public static double rootMeanSquared(double[] values) {
 		double ms = 0;
-		for (int i = 0; i < values.length; i++) {
-			ms += values[i] * values[i];
+		for (double value : values) {
+			ms += value * value;
 		}
 		ms /= values.length;
 		return Math.sqrt(ms);

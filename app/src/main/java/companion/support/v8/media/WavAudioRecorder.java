@@ -29,7 +29,8 @@ public class WavAudioRecorder {
 	 * ERROR : reconstruction needed
 	 * STOPPED: reset needed
 	 */
-	public enum State {INITIALIZING, READY, RECORDING, ERROR, STOPPED};
+	public enum State {INITIALIZING, READY, RECORDING, ERROR, STOPPED}
+
 	/** Recorder state. */
 	public State state = State.ERROR;
 
@@ -102,7 +103,7 @@ public class WavAudioRecorder {
 			try {
 				short[] shortBuffer = new short[buffer.length/2];
 				ByteBuffer.wrap(buffer).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shortBuffer);
-				double signalPower = MediaUtils.getSignalPower(ArraysUtils.copyOf(shortBuffer, bufferResult/2))
+				double signalPower = MediaUtils.getSignalPower(ArraysUtils.copyOf(shortBuffer, bufferResult/2));
 				averageSignalPower = (averageSignalPower * averageCount + signalPower) / (averageCount + 1);
 				averageCount++;
 			} catch (Exception e) {
@@ -124,10 +125,10 @@ public class WavAudioRecorder {
 					}
 				} else { 
 					// 8bit sample size
-					for (int i=0; i<buffer.length; i++) {
-						if (buffer[i] > currentAmplitude) { 
+					for (byte aBuffer : buffer) {
+						if (aBuffer > currentAmplitude) {
 							// Check amplitude
-							currentAmplitude = buffer[i];
+							currentAmplitude = aBuffer;
 						}
 					}
 				}

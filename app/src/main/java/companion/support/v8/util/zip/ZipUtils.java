@@ -1,11 +1,9 @@
 package companion.support.v8.util.zip;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import companion.support.v8.lang.ParsingUtils;
@@ -111,8 +109,7 @@ public class ZipUtils {
 	/**
 	 * Converts a JSONObject to a compressed byte array.
 	 * 
-	 * @param json
-	 *            JSONObject to convert.
+	 * @param json JSONObject to convert.
 	 * @return corresponding bytes.
 	 */
 	public static byte[] JSONObjectToZlib(JSONObject json) {
@@ -126,11 +123,8 @@ public class ZipUtils {
 	/**
 	 * Converts compressed bytes to a JSONObject.
 	 * 
-	 * @param byteArray
-	 *            bytes to convert.
+	 * @param byteArray bytes to convert.
 	 * @return corresponding JSONObject.
-	 * @throws JSONException
-	 * @throws UnsupportedEncodingException
 	 */
 	public static JSONObject zlibToJSONObject(byte[] byteArray) {
 		if (byteArray == null) {

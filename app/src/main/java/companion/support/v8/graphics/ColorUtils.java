@@ -59,7 +59,7 @@ public class ColorUtils {
 	 * @param nR - red value (0-255)
 	 * @param nG - green value (0-255)
 	 * @param nB - blue value (0-255)
-	 * @return
+	 * @return Android Color value.
 	 */
 	public static int RGBToYUV(int nR, int nG, int nB) {
 		int nY = (( 66 * nR + 129 * nG +  25 * nB + 128) >> 8) +  16;

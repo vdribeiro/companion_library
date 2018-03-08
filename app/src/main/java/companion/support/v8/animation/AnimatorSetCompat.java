@@ -216,9 +216,9 @@ public final class AnimatorSetCompat extends AnimatorCompat {
         for (Node node : mNodes) {
             AnimatorCompat animation = node.animation;
             if (animation instanceof AnimatorSetCompat) {
-                ((AnimatorSetCompat)animation).setTarget(target);
+                animation.setTarget(target);
             } else if (animation instanceof ObjectAnimatorCompat) {
-                ((ObjectAnimatorCompat)animation).setTarget(target);
+                animation.setTarget(target);
             }
         }
     }
@@ -950,7 +950,7 @@ public final class AnimatorSetCompat extends AnimatorCompat {
         public Node clone() {
             try {
                 Node node = (Node) super.clone();
-                node.animation = (AnimatorCompat) animation.clone();
+                node.animation = animation.clone();
                 return node;
             } catch (CloneNotSupportedException e) {
                throw new AssertionError();

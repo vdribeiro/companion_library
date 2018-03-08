@@ -2,7 +2,9 @@ package companion.support.v8.location;
 
 import java.util.List;
 
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 
 import companion.support.v8.lang.Mathematical;
 
@@ -23,6 +25,36 @@ public class LocationUtils {
 	 * The earth's mean radius, in meters as defined by IUGG.
 	 */
 	public static final double EARTH_MEAN_RADIUS = 6371009d;
+
+	/**
+	 * Get the best last known location.
+	 * @param context of the caller.
+	 * @return location.
+	 */
+	@SuppressWarnings({"MissingPermission", "ConstantConditions"})
+	public static Location getLastKnownLocation(Context context) {
+		Location bestLocation = null;
+
+		try {
+			LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+			List<String> providers = locationManager.getProviders(true);
+
+			for (String provider : providers) {
+				Location l = locationManager.getLastKnownLocation(provider);
+				if (l == null) {
+					continue;
+				}
+
+				if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+					bestLocation = l;
+				}
+			}
+		} catch (Throwable t) {
+			bestLocation = null;
+		}
+
+		return bestLocation;
+	}
 
 	/** Calculate haversine.
 	 * @param x radians.
@@ -73,20 +105,20 @@ public class LocationUtils {
 	/**
 	 * Correct time offsets due to the leap year bug.
 	 * 
-	 * @param loctime the location timestamp.
-	 * @param systemtime the system timestamp.
+	 * @param locTime the location timestamp.
+	 * @param systemTime the system timestamp.
 	 * @return the adjusted time.
 	 */
-	public static long correctTime(long loctime, long systemtime) {
+	public static long correctTime(long locTime, long systemTime) {
 		// One day seconds offset
-		int oneday = 86400000;
+		int oneDay = 86400000;
 
 		// If error is between 23.75 and 24.25 hours, it very likely has the leap-year bug
-		if (loctime >= systemtime + oneday-900000 && loctime <= systemtime + oneday+900000) {
-			return loctime - oneday;
+		if (locTime >= systemTime + oneDay-900000 && locTime <= systemTime + oneDay+900000) {
+			return locTime - oneDay;
 		}
 
-		return loctime;
+		return locTime;
 	}
 
 	/**
@@ -98,7 +130,6 @@ public class LocationUtils {
 	 * 
 	 * <p> Based on http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf 
 	 * using the "Inverse Formula" (section 4)
-	 *
 	 *
 	 * @param lat1 the starting latitude.
 	 * @param lon1 the starting longitude.
@@ -197,17 +228,17 @@ public class LocationUtils {
 			}
 		}
 
-		double distance = (double) (b * A * (sigma - deltaSigma));
+		double distance = b * A * (sigma - deltaSigma);
 		results[0] = distance;
 
-		double initialBearing = (double) Math.atan2(
+		double initialBearing = Math.atan2(
 			cosU2 * sinLambda,
 			cosU1 * sinU2 - sinU1 * cosU2 * cosLambda
 		);
 		initialBearing *= 180.0d / Math.PI;
 		results[1] = initialBearing;
 
-		double finalBearing = (double) Math.atan2(
+		double finalBearing = Math.atan2(
 			cosU1 * sinLambda,
 			-sinU1 * cosU2 + cosU1 * sinU2 * cosLambda
 		);
@@ -250,8 +281,8 @@ public class LocationUtils {
 	/**
 	 * Returns the resulting coordinates from moving a distance from an origin
 	 * in the specified heading (expressed in degrees clockwise from north).
-	 * @param latitude.
-	 * @param longitude.
+	 * @param latitude coordinate.
+	 * @param longitude coordinate.
 	 * @param distance to travel.
 	 * @param heading in degrees clockwise from north.
 	 * @param planetRadius the planet's mean radius.
@@ -277,8 +308,8 @@ public class LocationUtils {
 	 * Returns the resulting coordinates from moving a distance from an origin
 	 * in the specified heading (expressed in degrees clockwise from north)
 	 * considering the default earth's mean radius defined by IUGG.
-	 * @param latitude.
-	 * @param longitude.
+	 * @param latitude coordinate.
+	 * @param longitude coordinate.
 	 * @param distance to travel.
 	 * @param heading in degrees clockwise from north.
 	 * @return an array of doubles that holds the latitude and longitude respectively.

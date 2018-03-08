@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
@@ -40,6 +41,7 @@ import android.view.animation.AnimationUtils;
  * it only works with an XmlPullParser returned from a compiled resource (R.
  * <em>something</em> file.)
  */
+@SuppressLint("InlinedApi")
 public class AnimatorInflaterCompat {
     private static final int[] AnimatorSet = new int[] {
         /* 0 */ android.R.attr.ordering,
@@ -92,6 +94,7 @@ public class AnimatorInflaterCompat {
      * @return The animator object reference by the specified id
      * @throws android.content.res.Resources.NotFoundException when the animation cannot be loaded
      */
+    @SuppressLint("NewApi")
     public static AnimatorCompat loadAnimator(Context context, int id)
             throws NotFoundException {
 
@@ -102,14 +105,12 @@ public class AnimatorInflaterCompat {
         } catch (XmlPullParserException ex) {
             Resources.NotFoundException rnf =
                     new Resources.NotFoundException("Can't load animation resource ID #0x" +
-                    Integer.toHexString(id));
-            rnf.initCause(ex);
+                    Integer.toHexString(id), ex);
             throw rnf;
         } catch (IOException ex) {
             Resources.NotFoundException rnf =
                     new Resources.NotFoundException("Can't load animation resource ID #0x" +
-                    Integer.toHexString(id));
-            rnf.initCause(ex);
+                    Integer.toHexString(id), ex);
             throw rnf;
         } finally {
             if (parser != null) parser.close();

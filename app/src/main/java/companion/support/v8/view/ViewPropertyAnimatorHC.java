@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.animation.Interpolator;
 
@@ -535,6 +536,7 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimatorCompat {
      * @param propertyConstant The property to be set
      * @param value The value to set the property to
      */
+    @SuppressLint("NewApi")
     private void setValue(int propertyConstant, float value) {
         //final View.TransformationInfo info = mView.mTransformationInfo;
         View v = mView.get();
@@ -590,6 +592,7 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimatorCompat {
      * @param propertyConstant The property whose value should be returned
      * @return float The value of the named property
      */
+    @SuppressLint("NewApi")
     private float getValue(int propertyConstant) {
         //final View.TransformationInfo info = mView.mTransformationInfo;
         View v = mView.get();

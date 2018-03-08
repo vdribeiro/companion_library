@@ -36,7 +36,7 @@ public class TelephonyUtils {
 
 	/** Get the type of radio used to transmit voice calls. 
 	 * Usually GSM or CDMA.
-	 * @param type constant of the {@link #TelephonyManager} object.
+	 * @param type constant of the {@code TelephonyManager} object.
 	 * @return String representation of the phone type.
 	 */
 	public static String getPhoneType(int type) {
@@ -59,7 +59,7 @@ public class TelephonyUtils {
 	}
 
 	/** Get the network type.
-	 * @param type constant of the {@link #TelephonyManager} object.
+	 * @param type constant of the {@code TelephonyManager} object.
 	 * @return String representation of the network type.
 	 */
 	public static String getNetworkType(int type) {

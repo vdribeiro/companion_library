@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import companion.support.v8.graphics.drawable.BitmapDrawableRecycled;
 
@@ -15,7 +14,7 @@ import companion.support.v8.graphics.drawable.BitmapDrawableRecycled;
  * @author Vitor Ribeiro
  *
  */
-public class ImageViewRecycled extends ImageView {
+public class ImageViewRecycled extends android.support.v7.widget.AppCompatImageView {
 	
 	public ImageViewRecycled(Context context) {
 		super(context);

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\Vitor Ribeiro\AndroidStudioProjects\CompanionLibrary\app\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\Vitor Ribeiro\AndroidStudioProjects\CompanionLibrary\app\src\debug\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Users\Vitor Ribeiro\GitHub\companion_library\app\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\Vitor Ribeiro\GitHub\companion_library\app\src\debug\jniLibs"/></dataSet></merger>

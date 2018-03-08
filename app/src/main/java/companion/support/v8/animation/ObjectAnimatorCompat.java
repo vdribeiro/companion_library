@@ -362,9 +362,9 @@ public final class ObjectAnimatorCompat extends ValueAnimatorCompat {
 			// No values yet - this animator is being constructed piecemeal. Init the values with
 			// whatever the current propertyName is
 			if (mProperty != null) {
-				setValues(PropertyValuesHolderCompat.ofObject(mProperty, (TypeEvaluatorCompat)null, values));
+				setValues(PropertyValuesHolderCompat.ofObject(mProperty, null, values));
 			} else {
-				setValues(PropertyValuesHolderCompat.ofObject(mPropertyName, (TypeEvaluatorCompat)null, values));
+				setValues(PropertyValuesHolderCompat.ofObject(mPropertyName, null, values));
 			}
 		} else {
 			super.setObjectValues(values);
@@ -405,8 +405,8 @@ public final class ObjectAnimatorCompat extends ValueAnimatorCompat {
 				setProperty(PROXY_PROPERTIES.get(mPropertyName));
 			}
 			int numValues = mValues.length;
-			for (int i = 0; i < numValues; ++i) {
-				mValues[i].setupSetterAndGetter(mTarget);
+			for (PropertyValuesHolderCompat mValue : mValues) {
+				mValue.setupSetterAndGetter(mTarget);
 			}
 			super.initAnimation();
 		}
@@ -459,8 +459,8 @@ public final class ObjectAnimatorCompat extends ValueAnimatorCompat {
 	public void setupStartValues() {
 		initAnimation();
 		int numValues = mValues.length;
-		for (int i = 0; i < numValues; ++i) {
-			mValues[i].setupStartValue(mTarget);
+		for (PropertyValuesHolderCompat mValue : mValues) {
+			mValue.setupStartValue(mTarget);
 		}
 	}
 
@@ -468,8 +468,8 @@ public final class ObjectAnimatorCompat extends ValueAnimatorCompat {
 	public void setupEndValues() {
 		initAnimation();
 		int numValues = mValues.length;
-		for (int i = 0; i < numValues; ++i) {
-			mValues[i].setupEndValue(mTarget);
+		for (PropertyValuesHolderCompat mValue : mValues) {
+			mValue.setupEndValue(mTarget);
 		}
 	}
 
@@ -489,8 +489,8 @@ public final class ObjectAnimatorCompat extends ValueAnimatorCompat {
 	void animateValue(float fraction) {
 		super.animateValue(fraction);
 		int numValues = mValues.length;
-		for (int i = 0; i < numValues; ++i) {
-			mValues[i].setAnimatedValue(mTarget);
+		for (PropertyValuesHolderCompat mValue : mValues) {
+			mValue.setAnimatedValue(mTarget);
 		}
 	}
 
@@ -502,13 +502,12 @@ public final class ObjectAnimatorCompat extends ValueAnimatorCompat {
 
 	@Override
 	public String toString() {
-		String returnVal = "ObjectAnimator@" + Integer.toHexString(hashCode()) + ", target " +
-				mTarget;
+		StringBuilder returnVal = new StringBuilder("ObjectAnimator@" + Integer.toHexString(hashCode()) + ", target " + mTarget);
 		if (mValues != null) {
-			for (int i = 0; i < mValues.length; ++i) {
-				returnVal += "\n    " + mValues[i].toString();
+			for (PropertyValuesHolderCompat mValue : mValues) {
+				returnVal.append("\n    ").append(mValue.toString());
 			}
 		}
-		return returnVal;
+		return returnVal.toString();
 	}
 }

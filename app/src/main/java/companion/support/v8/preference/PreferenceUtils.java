@@ -1,6 +1,5 @@
 package companion.support.v8.preference;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import android.content.Context;
@@ -39,9 +38,8 @@ public class PreferenceUtils {
 	public static void print(Context context) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		Map<String, ?> map = prefs.getAll();
-		Iterator<?> it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pairs = (Map.Entry) it.next();
+		for (Object o : map.entrySet()) {
+			Map.Entry pairs = (Map.Entry) o;
 			LogHelper.i(TAG, pairs.getKey() + " = " + pairs.getValue());
 		}
 	}

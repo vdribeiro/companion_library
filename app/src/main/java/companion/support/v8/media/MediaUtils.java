@@ -202,8 +202,8 @@ public class MediaUtils {
 
 	/** 
 	 * Gets a list of the possible audio configurations in this device according to the given parameters.
-	 * @param encoder to be used for recording, as per AudioFormat.
-	 * @param channelConfiguration describes the configuration of the audio channels, as per AudioFormat.
+	 * @param encoders to be used for recording, as per AudioFormat.
+	 * @param channelConfigurations describes the configuration of the audio channels, as per AudioFormat.
 	 * @param sampleRates the sample rates expressed in Hertz.
 	 * @return arrayList of supported AudioRecord objects.
 	 */
@@ -269,25 +269,25 @@ public class MediaUtils {
 	 * @return true if it is considered silence, false otherwise.
 	 */
 	public static boolean isSilence(short[] audioData) {
-		if ((int) getSignalPower(audioData) < DEFAULT_SILENCE_THRESHOLD) {
-			return true;
-		}
+        return (int) getSignalPower(audioData) < DEFAULT_SILENCE_THRESHOLD;
 
-		return false;
-	}
+    }
 
 	/** Get the signal power.
 	 * @param audioData audio buffer.
 	 * @return signal power.
 	 */
 	public static double getSignalPower(short[] audioData) {
-		if (audioData==null || (audioData!=null && audioData.length==0)) {
+		if (audioData == null) {
+			return 0;
+		}
+		if (audioData.length == 0) {
 			return 0;
 		}
 
 		double ms = 0;
-		for (int i = 0; i < audioData.length; i++) {
-			ms += audioData[i] * audioData[i];
+		for (short anAudioData : audioData) {
+			ms += anAudioData * anAudioData;
 		}
 		ms /= audioData.length;
 
@@ -299,13 +299,16 @@ public class MediaUtils {
 	 * @return number of zeros.
 	 */
 	public static int countZeros(short[] audioData) {
-		if (audioData==null || (audioData!=null && audioData.length==0)) {
+		if (audioData == null) {
+			return 0;
+		}
+		if (audioData.length == 0) {
 			return 0;
 		}
 
 		int numZeros = 0;
-		for (int i = 0; i < audioData.length; i++) {
-			if (audioData[i] == 0) {
+		for (short anAudioData : audioData) {
+			if (anAudioData == 0) {
 				numZeros++;
 			}
 		}

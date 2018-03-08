@@ -163,7 +163,6 @@ public class Cryptography {
 		return checksum;
 	}
 
-
 	/**
 	 * Encrypt data given a key.
 	 *
@@ -579,9 +578,7 @@ public class Cryptography {
 		keyGen.initialize(512, random);
 
 		// Generate the Pair of Keys
-		KeyPair pair = keyGen.generateKeyPair();
-
-		return pair;
+		return keyGen.generateKeyPair();
 	}
 
 	/**
@@ -707,8 +704,7 @@ public class Cryptography {
 		}
 
 		// Generate KeyPair
-		KeyPair keypair = new KeyPair(pubKey, privKey);
-		return keypair;
+		return new KeyPair(pubKey, privKey);
 	}
 
 	/**

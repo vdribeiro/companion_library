@@ -64,7 +64,7 @@ public class TimeAnimatorCompat extends ValueAnimatorCompat {
      *
      * @hide
      */
-    public static interface TimeListener {
+    public interface TimeListener {
         /**
          * <p>Notifies listeners of the occurrence of another frame of the animation,
          * along with information about the elapsed time.</p>

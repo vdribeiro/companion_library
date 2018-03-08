@@ -21,6 +21,9 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
+import android.support.annotation.NonNull;
+
+import companion.support.v8.util.LogHelper;
 
 /** 
  * This class is an extension of the AsyncTask so that threading behavior on all OS versions 
@@ -201,7 +204,7 @@ public abstract class AsyncTaskCompat<Params, Progress, Result> {
 	private static final ThreadFactory  sThreadFactory = new ThreadFactory() {
 		private final AtomicInteger mCount = new AtomicInteger(1);
 
-		public Thread newThread(Runnable r) {
+		public Thread newThread(@NonNull Runnable r) {
 			return new Thread(r, "SupportAsyncTask #" + mCount.getAndIncrement());
 		}
 	};
@@ -246,7 +249,7 @@ public abstract class AsyncTaskCompat<Params, Progress, Result> {
 		final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
 		Runnable mActive;
 
-		public synchronized void execute(final Runnable r) {
+		public synchronized void execute(@NonNull final Runnable r) {
 			mTasks.offer(new Runnable() {
 				public void run() {
 					try {
@@ -317,9 +320,9 @@ public abstract class AsyncTaskCompat<Params, Progress, Result> {
 				try {
 					postResultIfNotInvoked(get());
 				} catch (InterruptedException e) {
-					companion.support.v8.util.LogHelper.w(TAG, new String(), e);
+					LogHelper.w(TAG, "Interrupted while executing doInBackground()", e);
 				} catch (ExecutionException e) {
-					throw new RuntimeException("An error occured while executing doInBackground()",
+					throw new RuntimeException("An error occurred while executing doInBackground()",
 							e.getCause());
 				} catch (CancellationException e) {
 					postResultIfNotInvoked(null);

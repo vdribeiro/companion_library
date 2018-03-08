@@ -120,7 +120,7 @@ public class ParallaxViewPager extends SmartViewPager {
 	/**
 	 * Sets the background from a resource file.
 	 *
-	 * @param resid
+	 * @param resid resource id.
 	 */
 	@Override 
 	public void setBackgroundResource(int resid) {
@@ -130,7 +130,7 @@ public class ParallaxViewPager extends SmartViewPager {
 	/**
 	 * Sets the background from a Drawable.
 	 *
-	 * @param background
+	 * @param background drawable.
 	 */
 	@Override 
 	public void setBackground(Drawable background) {
@@ -141,7 +141,7 @@ public class ParallaxViewPager extends SmartViewPager {
 	 * Deprecated.
 	 * Sets the background from a Drawable.
 	 *
-	 * @param background
+	 * @param background drawable.
 	 */
 	@Override 
 	public void setBackgroundDrawable(Drawable background) {
@@ -151,7 +151,7 @@ public class ParallaxViewPager extends SmartViewPager {
 	/**
 	 * Sets the background from a bitmap.
 	 *
-	 * @param bitmap
+	 * @param bitmap object.
 	 * @return The ParallaxViewPager object itself.
 	 */
 	public ParallaxViewPager setBackground(Bitmap bitmap) {
@@ -166,8 +166,8 @@ public class ParallaxViewPager extends SmartViewPager {
 	 * <li>FIT_WIDTH - the width of the background image is divided into equal chunks, each taking up the whole width of the screen.</li>
 	 * </ul>
 	 *
-	 * @param scaleType
-	 * @return
+	 * @param scaleType from scale constants.
+	 * @return view.
 	 */
 	public ParallaxViewPager setScaleType(final int scaleType) {
 		if (scaleType != FIT_WIDTH && scaleType != FIT_HEIGHT) {
@@ -180,7 +180,7 @@ public class ParallaxViewPager extends SmartViewPager {
 	/**
 	 * Sets the amount of overlapping with the setOverlapPercentage(final float percentage) method. This is a number between 0 and 1, the smaller it is, the slower is the background scrolling.
 	 *
-	 * @param percentage
+	 * @param percentage 0 to 1.
 	 * @return The ParallaxViewPager object itself.
 	 */
 	public ParallaxViewPager setOverlapPercentage(final float percentage) {

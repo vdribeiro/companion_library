@@ -4,7 +4,8 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.widget.ImageView;
-import companion.support.v8.graphics.GraphicsUtils;
+
+import companion.support.v8.graphics.ImageUtils;
 import companion.support.v8.util.LogHelper;
 
 /**
@@ -40,7 +41,7 @@ public class BitmapLoader extends BitmapWorkerTask {
 			LogHelper.e(TAG, "doInBackground - invalid identifiers: " + e);	
 		}
 
-		Options options = GraphicsUtils.getBitmapOptions(data, reqWidth, reqHeight, null);
+		Options options = ImageUtils.getBitmapOptions(data, reqWidth, reqHeight, null);
 		return BitmapFactory.decodeByteArray(data, 0, data.length, options);
 	}
 

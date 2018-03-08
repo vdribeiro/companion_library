@@ -126,9 +126,9 @@ public class NMEA {
 	 * <p>
 	 * NOTE: This method still needs refining and should only be used for debug purposes for now. 
 	 * 
-	 * @param NMEA sentence.
+	 * @param nmeaSentence NMEA sentence.
 	 * @return NMEA object.
-	 * @throws Exception
+	 * @throws Exception on error.
 	 */
 	public static NMEA parseNmeaSentence(String nmeaSentence) throws Exception {
 		String sentence = null;
@@ -397,38 +397,40 @@ public class NMEA {
 	}
 
 	/** Convert time to the Unix timestamp.
-	 * @param time
+	 * @param time of NMEA sentence.
 	 * @return timestamp.
-	 * @throws Exception
+	 * @throws Exception on error.
 	 */
 	public static long parseNmeaTime(String time) throws Exception {
+		if (time == null) {
+			return 0;
+		}
+
 		long timestamp = 0;
 		SimpleDateFormat fmt = new SimpleDateFormat("HHmmss.SSS", Locale.getDefault());
 		fmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-		if (time != null && time != null) {
-			long now = System.currentTimeMillis();
-			long today = now - (now %86400000L);
-			
-			// Sometime we don't have millisecond in the time string, so we have to reformat it. 
-			long temp1 = fmt.parse(String.format((Locale)null,"%010.3f", Double.parseDouble(time))).getTime();
-			long temp2 = today+temp1;
-			
-			// If we're around midnight we could have a problem.
-			if (temp2 - now > 43200000l) {
-				timestamp  = temp2 - 86400000l;
-			} else if (now - temp2 > 43200000l){
-				timestamp  = temp2 + 86400000l;
-			} else {
-				timestamp  = temp2;
-			}
+		long now = System.currentTimeMillis();
+		long today = now - (now %86400000L);
+
+		// Sometime we don't have millisecond in the time string, so we have to reformat it.
+		long temp1 = fmt.parse(String.format((Locale)null,"%010.3f", Double.parseDouble(time))).getTime();
+		long temp2 = today+temp1;
+
+		// If we're around midnight we could have a problem.
+		if (temp2 - now > 43200000L) {
+			timestamp  = temp2 - 86400000L;
+		} else if (now - temp2 > 43200000L){
+			timestamp  = temp2 + 86400000L;
+		} else {
+			timestamp  = temp2;
 		}
 
 		return timestamp;
 	}
 
 	/** Compute checksum.
-	 * @param string
+	 * @param string to compute.
 	 * @return checksum.
 	 */
 	public static byte computeNmeaChecksum(String string) {
