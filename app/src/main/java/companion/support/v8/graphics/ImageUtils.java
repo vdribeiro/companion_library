@@ -45,7 +45,7 @@ import companion.support.v8.time.DateTimeUtils;
 public class ImageUtils {
 
     /** Log tag. */
-    private final static String TAG = ImageUtils.class.getSimpleName();
+    private static final String TAG = ImageUtils.class.getSimpleName();
 
     /** Maximum image size in pixels. */
     public static int MAX_PIXEL_SIZE = 1080;

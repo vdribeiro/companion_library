@@ -15,7 +15,7 @@ import companion.support.v8.util.LogHelper;
 public class Fixes {
 	
 	/** Log tag. */
-	public static final String TAG = Fixes.class.getSimpleName();
+	private static final String TAG = Fixes.class.getSimpleName();
 
 	/** Hidden constructor to prevent instantiation. */
 	private Fixes() {

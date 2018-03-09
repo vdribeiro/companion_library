@@ -29,7 +29,7 @@ import companion.support.v8.util.LogHelper;
 public class NetworkUtils {
 
 	/** Log tag. */
-	private final static String TAG = NetworkUtils.class.getSimpleName();
+	private static final String TAG = NetworkUtils.class.getSimpleName();
 
 	/** This prevents the class from being instantiated. 
 	 */

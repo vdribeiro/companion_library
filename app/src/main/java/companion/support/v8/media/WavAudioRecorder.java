@@ -20,7 +20,7 @@ import companion.support.v8.util.LogHelper;
 public class WavAudioRecorder {
 
 	/** Log tag. */
-	protected final static String TAG = WavAudioRecorder.class.getSimpleName();
+	private static final String TAG = WavAudioRecorder.class.getSimpleName();
 
 	/**
 	 * INITIALIZING : recorder is initializing;

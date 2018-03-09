@@ -15,7 +15,7 @@ import companion.support.v8.util.LogHelper;
 public class AccountUtils {
 
 	/** Log tag. */
-	protected final static String TAG = AccountUtils.class.getSimpleName();
+	private static final String TAG = AccountUtils.class.getSimpleName();
 
 	/**
 	 * Get the default Google account

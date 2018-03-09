@@ -1,10 +1,18 @@
 package companion.support.v8.hardware;
 
+import android.bluetooth.BluetoothClass;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 
+import java.util.List;
+import java.util.Locale;
+
+import companion.support.v8.lang.ParsingUtils;
 import companion.support.v8.os.Utils;
+import companion.support.v8.util.ArraysUtils;
+import companion.support.v8.util.LogHelper;
 
 /**
  * Class with a bundle of Sensor methods.
@@ -13,6 +21,9 @@ import companion.support.v8.os.Utils;
  *
  */
 public class SensorUtils {
+
+	/** Log tag. */
+	private static final String TAG = SensorUtils.class.getSimpleName();
 
 	/**
 	 * <p>The values from the sensor {@link android.hardware.Sensor#TYPE_ACCELEROMETER
@@ -92,6 +103,58 @@ public class SensorUtils {
 	/** This prevents the class from being instantiated. 
 	 */
 	private SensorUtils() {
+	}
+
+	/**
+	 * Get sensor information regarding name, power, maximum range and resolution.
+	 * @param sensor object.
+	 * @param unit of the sensor (like mA for milliamps).
+	 * @return string with sensor information.
+	 */
+	public static String getSensorInfo(Sensor sensor, String unit) {
+		if (sensor == null) {
+			return null;
+		}
+		unit = " " + unit;
+		return "Name: " + sensor.getName()
+				+ "; Power: " + sensor.getPower() + unit
+				+ "; Max Range: " + sensor.getMaximumRange() + unit
+				+ "; Resolution: " + sensor.getResolution() + unit;
+	}
+
+	/**
+	 * Get information from all the existing sensors regarding name, power, maximum range and
+	 * resolution.
+	 * @param context the caller context.
+	 * @return a string with all the sensors information.
+	 */
+	public static String getAllSensorInfo(Context context) {
+		SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+		if (sensorManager == null) {
+			return null;
+		}
+
+		List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+		if (sensorList == null) {
+			return null;
+		}
+
+		StringBuilder sensorInfo = new StringBuilder("");
+		LogHelper.d(TAG, sensorList.toString());
+		for (Sensor s : sensorList) {
+			sensorInfo.append("Sensor Name: ");
+			sensorInfo.append(s.getName());
+			sensorInfo.append(" Vendor: ");
+			sensorInfo.append(s.getVendor());
+			sensorInfo.append(" Version: ");
+			sensorInfo.append(s.getVersion());
+			sensorInfo.append(" Resolution: ");
+			sensorInfo.append(s.getResolution());
+			sensorInfo.append(" MaxRange: ");
+			sensorInfo.append(s.getMaximumRange());
+			sensorInfo.append("\n");
+		}
+		return sensorInfo.toString();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -387,5 +450,210 @@ public class SensorUtils {
 			outR[15] = 1;
 		}
 		return true;
+	}
+
+	/**
+	 * Compress a given value (possibly losing precision) to fit in an interval.
+	 *
+	 * @param value to compress.
+	 * @param min new minimum value.
+	 * @param max new maximum value.
+	 * @param scale to fit.
+	 * @param size number of resulting bytes.
+	 * @return compressed value.
+	 */
+	public static byte[] compress(float value, float min, float max, float scale, int size) {
+		// Warn if overflow is possible
+		if ((max - min) * scale > Math.pow(256, size)) {
+			LogHelper.w(TAG, "Overflow is possible. MAX: " + max + " SCALE: " + scale + " SIZE: " + size);
+		}
+
+		if (min > max) {
+			return null;
+		}
+		if (value > max) {
+			value = max;
+		}
+		if (value < min) {
+			value = min;
+		}
+		value *= scale;
+
+		byte[] array = ParsingUtils.intToBytes((int) value);
+		return ArraysUtils.truncateLeftBytes(array, size);
+	}
+
+	public static float decompress(byte[] array, float scale, boolean positive) {
+		int val = ParsingUtils.bytesToInt(array);
+		if (positive && val < 0) {
+			val = 256 * 256 + val;
+		}
+		return (val / scale);
+	}
+
+	public static byte[] compressAccelerometer(float value) {
+		return compress(value, -126, 126, 256, 2);
+	}
+
+	public static float decompressAccelerometer(byte[] array) {
+		return decompress(array, 256, false);
+	}
+
+	public static byte[] compressMagnetometer(float value) {
+		return compress(value, -4080, 4080, 8, 2);
+	}
+
+	public static float decompressMagnetometer(byte[] array) {
+		return decompress(array, 8, false);
+	}
+
+	public static byte[] compressGyroscope(float value) {
+		return compress(value, -62, 62, 512, 2);
+	}
+
+	public static float decompressGyroscope(byte[] array) {
+		return decompress(array, 512, false);
+	}
+
+	public static byte[] compressLight(float value) {
+		return compress(value, 0, 8160, 8, 2);
+	}
+
+	public static float decompressLight(byte[] array) {
+		return decompress(array, 8, true);
+	}
+
+	public static byte[] compressPressure(float value) {
+		return compress(value, 0, 2040, 32, 2);
+	}
+
+	public static float decompressPressure(byte[] array) {
+		return decompress(array, 32, true);
+	}
+
+	public static byte[] compressProximity(float value) {
+		return compress(value, 0, 25, 10, 1);
+	}
+
+	public static float decompressProximity(byte[] array) {
+		return decompress(array, 10, true);
+	}
+
+	public static byte[] compressHumidity(float value) {
+		return compress(value, 0, 120, 2, 1);
+	}
+
+	public static float decompressHumidity(byte[] array) {
+		return decompress(array, 2, true);
+	}
+
+	public static byte[] compressTemperature(float value) {
+		return compress(value, -254, 254, 128, 2);
+	}
+
+	public static float decompressTemperature(byte[] array) {
+		return decompress(array, 128, false);
+	}
+
+	/**
+	 * Returns the code of the authentication method of the AP.
+	 * @param capabilities a string describing the authentication, key management, and encryption schemes
+	 *                        supported by the access point.
+	 * @return code value as:
+	 * <ul>
+	 * <li>
+	 * 0 - Unknown.</li>
+	 * <li>
+	 * 1 - Open.</li>
+	 * <li>
+	 * 2 - WEP.</li>
+	 * <li>
+	 * 3 - WPA.</li>
+	 * <li>
+	 * 4 - WPA2.</li>
+	 * <li>
+	 * 5 - Enterprise (RADIUS/.11x/Other).</li>
+	 * </ul>
+	 */
+	public static byte getAPAuthentication(String capabilities) {
+		if (capabilities==null) {
+			return 0;
+		}
+		capabilities = capabilities.toUpperCase(Locale.getDefault());
+
+		if (capabilities.contains("EAP")) {
+			return 5;
+		}
+		if (capabilities.contains("WPA2")) {
+			return 4;
+		}
+		if (capabilities.length()<=0
+				|| capabilities.equalsIgnoreCase("[ESS]")
+				|| capabilities.equalsIgnoreCase("[IBSS]")
+				|| capabilities.equalsIgnoreCase("[P2P]")
+				|| capabilities.contains("OPEN")) {
+			return 1;
+		}
+		if (capabilities.contains("WPA")) {
+			return 3;
+		}
+		if (capabilities.contains("WEP")) {
+			return 2;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Returns the code of the mode of the AP.
+	 * @param capabilities a string describing the authentication, key management, and encryption schemes
+	 *                        supported by the access point.
+	 * @return code value as:
+	 * <ul>
+	 * <li>
+	 * 0 - Unknown.</li>
+	 * <li>
+	 * 1 - AdHoc.</li>
+	 * <li>
+	 * 2 - Mesh.</li>
+	 * <li>
+	 * 3 - AP.</li>
+	 * <li>
+	 * 4 - Repeater.</li>
+	 * <li>
+	 * 5 - Secondary AP.</li>
+	 * </ul>
+	 */
+	public static byte getAPMode(String capabilities) {
+		if (capabilities==null) {
+			return 0;
+		}
+		capabilities = capabilities.toUpperCase(Locale.getDefault());
+
+		if (capabilities.contains("IBSS") || capabilities.contains("P2P"))
+			return 1;
+		if (capabilities.contains("ESS"))
+			return 3;
+
+		return 0;
+	}
+
+	/**
+	 * Returns the channel number given a frequency.
+	 *
+	 * @param frequency in MHz of the channel over which the client is communicating with the access point.
+	 * @return channel.
+	 */
+	public static short getAPChannelNumber(int frequency) {
+		return (short) ((frequency - 2407) / 5);
+	}
+
+	/**
+	 * Get Bluetooth Device Class Code.
+	 * @param bluetoothClass BluetoothClass object.
+	 * @return an unique code.
+	 */
+	public static short getBluetoothClassCode(BluetoothClass bluetoothClass) {
+		return (short) ((bluetoothClass.hashCode() & 0xFFFF00 >> 8));
 	}
 }

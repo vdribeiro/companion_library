@@ -18,7 +18,7 @@ import companion.support.v8.lang.ExceptionParser;
 public class LogHelper {
 
 	/** Log tag. */
-	public final static String TAG = LogHelper.class.getSimpleName();
+	public static final String TAG = LogHelper.class.getSimpleName();
 
 	/** Write to LogCat only on debug mode. */
 	public static boolean debugOnly = true;
