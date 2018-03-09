@@ -563,17 +563,17 @@ public class ImageUtils {
     }
 
     /**
-     * Adds a ripple effect.
-     * @param drawable object.
-     * @param rippleColor the color of the ripple.
-     * @return the RippleDrawable with the chosen background drawable.
+     * Add a ripple effect to the view when touched.
+     * @param context of the caller.
+     * @param view to add the effect to.
+     * @param primaryColor value.
+     * @param rippleColor value.
      */
-    public static Drawable getRippleDrawable(Drawable drawable, @ColorInt int rippleColor) {
-        if (Utils.hasLollipop()) {
-            return new RippleDrawable(ColorStateList.valueOf(rippleColor), drawable, getRippleMask(Color.BLACK, DEFAULT_RIPPLE_RADIUS));
-        } else {
-            return drawable;
-        }
+    public static void addRippleEffect(Context context, View view, int primaryColor, int rippleColor) {
+        Drawable rippleDrawable = getRippleDrawable(
+                new ColorDrawable(ContextCompat.getColor(context, primaryColor)),
+                ContextCompat.getColor(context, rippleColor));
+        setBackgroundCompat(view, rippleDrawable);
     }
 
     /**
@@ -589,6 +589,19 @@ public class ImageUtils {
         ShapeDrawable shapeDrawable = new ShapeDrawable(r);
         shapeDrawable.getPaint().setColor(color);
         return shapeDrawable;
+    }
+
+    /**
+     * Get drawable with ripple effect.
+     * @param drawable object.
+     * @param rippleColor the color of the ripple.
+     * @return the RippleDrawable with the chosen background drawable.
+     */
+    public static Drawable getRippleDrawable(Drawable drawable, @ColorInt int rippleColor) {
+        if (Utils.hasLollipop()) {
+            return new RippleDrawable(ColorStateList.valueOf(rippleColor), drawable, getRippleMask(Color.BLACK, DEFAULT_RIPPLE_RADIUS));
+        }
+        return drawable;
     }
 
     /**
@@ -624,20 +637,6 @@ public class ImageUtils {
         }
 
         setBackgroundCompat(view, gd);
-    }
-
-    /**
-     * Add a ripple effect to the view when touched.
-     * @param context of the caller.
-     * @param view to add the effect to.
-     * @param primaryColor value.
-     * @param rippleColor value.
-     */
-    public static void addRippleEffect(Context context, View view, int primaryColor, int rippleColor) {
-        Drawable rippleDrawable = getRippleDrawable(
-                new ColorDrawable(ContextCompat.getColor(context, primaryColor)),
-                ContextCompat.getColor(context, rippleColor));
-        setBackgroundCompat(view, rippleDrawable);
     }
 
     // TODO: Picasso utils
