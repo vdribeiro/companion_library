@@ -28,7 +28,7 @@ public class LocationUtils {
 	public static final double EARTH_MEAN_RADIUS = 6371009d;
 
 	/**
-	 * The universal gravitational constant.
+	 * The universal gravitational constant in Newton-meter squared per kilogram squared.
 	 */
 	public static final double G = (6.6740831 * Math.pow(10,-11));
 
