@@ -1,10 +1,11 @@
 package companion.support.v8.location;
 
-import java.util.List;
-
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+
+import java.util.Arrays;
+import java.util.List;
 
 import companion.support.v8.lang.Mathematical;
 
@@ -22,9 +23,14 @@ public class LocationUtils {
 	}
 
 	/**
-	 * The earth's mean radius, in meters as defined by IUGG.
+	 * The earth's mean radius in meters as defined by IUGG.
 	 */
 	public static final double EARTH_MEAN_RADIUS = 6371009d;
+
+	/**
+	 * The universal gravitational constant.
+	 */
+	public static final double G = (6.6740831 * Math.pow(10,-11));
 
 	/**
 	 * Get the best last known location.
@@ -360,6 +366,46 @@ public class LocationUtils {
 	 */
 	public static double computeLength(List<Double> latitudes, List<Double> longitudes) {
 		return computeLength(latitudes, longitudes, EARTH_MEAN_RADIUS);
+	}
+
+	/**
+	 * Calculate the surface gravity using the MKS system,
+	 * where the units for distance are meters,
+	 * the units for mass are kilograms, and the units for time are seconds.
+	 * @param mass in kilograms.
+	 * @param radius in meters.
+	 * @return surface gravity.
+	 */
+	public static double calculateSurfaceGravity(double mass, double radius) {
+		return (G * mass) / Math.pow(radius, 2);
+	}
+
+	/**
+	 * Convert right ascension given in hours, minutes and seconds,
+	 * and declination given in degrees, minutes and seconds to degrees.
+	 * @param rAscension right ascension string.
+	 * @param declination string.
+	 * @return an array of two doubles in degrees, or filled with NaN if the format is incorrect.
+	 */
+	public static double[] convertRightAscensionAndDeclinationToDegrees(String rAscension, String declination) {
+		String[] ra = rAscension.split(" ");
+		String[] dec = declination.split(" ");
+
+		double res[] = new double[2];
+
+		try {
+			res[0] = ((Float.parseFloat(ra[0]) * 15) +
+					(Float.parseFloat(ra[1]) / 4) +
+					(Float.parseFloat(ra[2]) / 240));
+
+			res[1] = ((Float.parseFloat(dec[0])) +
+					(Float.parseFloat(dec[1]) / 60) +
+					(Float.parseFloat(dec[2]) / 360));
+		} catch (Exception e) {
+			Arrays.fill(res, Double.NaN);
+		}
+
+		return res;
 	}
 
 }
