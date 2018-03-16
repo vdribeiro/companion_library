@@ -429,4 +429,50 @@ public class LocationUtils {
 		return res;
 	}
 
+	/**
+	 * Convert spherical to rectangular coordinates.
+	 * @param alpha in degrees.
+	 * @param beta in degrees.
+	 * @param r distance.
+	 * @return array of rectangular coordinates [X,Y,Z].
+	 */
+	public static double[] sphericalToRectangularCoordinates(double alpha, double beta, double r) {
+		double res[] = new double[3];
+
+		res[0] = r * Math.cos(alpha) * Math.cos(beta);
+		res[1] = r * Math.sin(alpha) * Math.cos(beta);
+		res[2] = r * Math.sin(beta);
+
+		return res;
+	}
+
+	/**
+	 * Distance between two cartesian coordinates.
+	 * @param p1 array of rectangular coordinates [X,Y,Z].
+	 * @param p2 array of rectangular coordinates [X,Y,Z].
+	 * @return distance.
+	 */
+	public static double calculateDistanceBetweenTwoPoints(double[] p1, double[] p2) {
+		return Math.sqrt(
+				Math.pow(p2[0] - p1[0], 2) +
+						Math.pow(p2[1] - p1[1], 2) +
+						Math.pow(p2[2] - p1[2], 2)
+		);
+	}
+	/**
+	 * Calculate the distance between two astronomical object.
+	 * @param ra1 right ascension of first astro in degrees.
+	 * @param dec1 declination of first astro in degrees.
+	 * @param r1 distance between Earth and the first astro.
+	 * @param ra2 right ascension of second astro in degrees.
+	 * @param dec2 declination of second astro in degrees.
+	 * @param r2 distance between Earth and the second astro.
+	 * @return an array of two doubles in degrees, or filled with NaN if the format is incorrect.
+	 */
+	public static double calculateDistanceBetweenTwoAstros(double ra1, double dec1, double r1, double ra2, double dec2, double r2) {
+		double[] res1 = sphericalToRectangularCoordinates(ra1, dec1, r1);
+		double[] res2 = sphericalToRectangularCoordinates(ra2, dec2, r2);
+		return calculateDistanceBetweenTwoPoints(res1, res2);
+	}
+
 }
