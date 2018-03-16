@@ -23,14 +23,24 @@ public class LocationUtils {
 	}
 
 	/**
-	 * The earth's mean radius in meters as defined by IUGG.
+	 * The universal gravitational constant in Newton-meter squared per kilogram squared.
+	 */
+	public static final double G = (6.6740831 * Math.pow(10,-11));
+
+	/**
+	 * The Earth's mass in kilograms.
+	 */
+	public static final double EARTH_MASS = 5.9722 * Math.pow(10, 24);
+
+	/**
+	 * The Earth's mean radius in meters as defined by IUGG.
 	 */
 	public static final double EARTH_MEAN_RADIUS = 6371009d;
 
 	/**
-	 * The universal gravitational constant in Newton-meter squared per kilogram squared.
+	 * The Earth's gravitational acceleration in meters per second squared.
 	 */
-	public static final double G = (6.6740831 * Math.pow(10,-11));
+	public static final double G_FORCE = 9.80665;
 
 	/**
 	 * Get the best last known location.
@@ -374,10 +384,21 @@ public class LocationUtils {
 	 * the units for mass are kilograms, and the units for time are seconds.
 	 * @param mass in kilograms.
 	 * @param radius in meters.
-	 * @return surface gravity.
+	 * @return surface gravity in meters per second squared.
 	 */
 	public static double calculateSurfaceGravity(double mass, double radius) {
 		return (G * mass) / Math.pow(radius, 2);
+	}
+
+	/**
+	 * Calculate the g force relative to Earth,
+	 * where the units are Earth mass and Earth radius.
+	 * @param mass in Earth mass.
+	 * @param radius in Earth radius.
+	 * @return g force of the planet.
+	 */
+	public static double calculateGForceRelativeToEarth(double mass, double radius) {
+		return ((G * mass * EARTH_MASS) / Math.pow(radius * EARTH_MEAN_RADIUS, 2) / G_FORCE);
 	}
 
 	/**
