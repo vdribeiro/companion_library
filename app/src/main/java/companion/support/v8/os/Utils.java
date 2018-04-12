@@ -1,6 +1,7 @@
 package companion.support.v8.os;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import android.annotation.SuppressLint;
@@ -24,6 +25,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import companion.support.v8.util.LogHelper;
@@ -113,7 +115,25 @@ public class Utils {
 		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
 
-		String id = settings.getString("GUID", UUID.randomUUID().toString());
+		String randomUUID;
+		try {
+			randomUUID = UUID.randomUUID().toString();
+		} catch (Throwable t) {
+			LogHelper.e(TAG, "Unable to create UUID", t);
+
+			Random rnd = new Random();
+
+			byte[] randomBytes = new byte[16];
+			rnd.nextBytes(randomBytes);
+			randomBytes[6]  &= 0x0f;
+			randomBytes[6]  |= 0x40;
+			randomBytes[8]  &= 0x3f;
+			randomBytes[8]  |= 0x80;
+
+			randomUUID = Base64.encodeToString(randomBytes, Base64.DEFAULT);
+		}
+
+		String id = settings.getString("GUID", randomUUID);
 		editor.putString("GUID", id);
 		editor.apply();
 		return id;

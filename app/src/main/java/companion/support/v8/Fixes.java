@@ -29,7 +29,7 @@ public class Fixes {
 	/** Fix for the output of the default PRNG having low entropy. */
 	public static void applyPRNGFixes() {
 		try {
-			PRNGUtils.applyFix();	
+			PRNGUtils.applyFix();
 		} catch (Exception e) {
 			LogHelper.e(TAG, "Could not apply security fix", e);
 		}

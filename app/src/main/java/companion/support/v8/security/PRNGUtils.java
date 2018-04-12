@@ -59,14 +59,16 @@ public final class PRNGUtils {
 
 		try {
 			// Mix in the device- and invocation-specific seed.
-			Class.forName("org.apache.harmony.xnet.provider.jsse.NativeCrypto")
-			.getMethod("RAND_seed", byte[].class)
-			.invoke(null, generateSeed());
+			Class.forName(
+					"org.apache.harmony.xnet.provider.jsse.NativeCrypto")
+					.getMethod("RAND_seed", byte[].class)
+					.invoke(null, generateSeed());
 
 			// Mix output of Linux PRNG into OpenSSL's PRNG
-			int bytesRead = (Integer) Class.forName("org.apache.harmony.xnet.provider.jsse.NativeCrypto")
-				.getMethod("RAND_load_file", String.class, long.class)
-				.invoke(null, "/dev/urandom", 1024);
+			int bytesRead = (Integer) Class.forName(
+					"org.apache.harmony.xnet.provider.jsse.NativeCrypto")
+					.getMethod("RAND_load_file", String.class, long.class)
+					.invoke(null, "/dev/urandom", 1024);
 			if (bytesRead != 1024) {
 				throw new IOException("Unexpected number of bytes read from Linux PRNG: " + bytesRead);
 			}
@@ -90,10 +92,11 @@ public final class PRNGUtils {
 
 		// Install a Linux PRNG-based SecureRandom implementation as the
 		// default, if not yet installed.
-		Provider[] secureRandomProviders = Security.getProviders("SecureRandom.SHA1PRNG");
+		Provider[] secureRandomProviders =
+				Security.getProviders("SecureRandom.SHA1PRNG");
 		if (
-			(secureRandomProviders == null) || 
-			(secureRandomProviders.length < 1) || 
+			(secureRandomProviders == null) ||
+			(secureRandomProviders.length < 1) ||
 			(!LinuxPRNGSecureRandomProvider.class.equals(secureRandomProviders[0].getClass()))
 		) {
 			Security.insertProviderAt(new LinuxPRNGSecureRandomProvider(), 1);
@@ -114,10 +117,7 @@ public final class PRNGUtils {
 			throw new SecurityException("SHA1PRNG not available", e);
 		}
 		if (!LinuxPRNGSecureRandomProvider.class.equals(rng2.getProvider().getClass())) {
-			throw new SecurityException(
-				"SecureRandom.getInstance(\"SHA1PRNG\") backed by wrong" + 
-				" Provider: " + rng2.getProvider().getClass()
-			);
+			throw new SecurityException("SecureRandom.getInstance(\"SHA1PRNG\") backed by wrong" + " Provider: " + rng2.getProvider().getClass());
 		}
 	}
 
@@ -126,8 +126,6 @@ public final class PRNGUtils {
 	 * all requests to the Linux PRNG.
 	 */
 	private static class LinuxPRNGSecureRandomProvider extends Provider {
-
-		private static final long serialVersionUID = 1L;
 
 		public LinuxPRNGSecureRandomProvider() {
 			super("LinuxPRNG", 1.0, "A Linux-specific random number provider that uses /dev/urandom");
@@ -157,8 +155,6 @@ public final class PRNGUtils {
 		 * serialized (on sLock) to ensure that multiple threads do not get
 		 * duplicated PRNG output.
 		 */
-
-		private static final long serialVersionUID = 1L;
 
 		private static final File URANDOM_FILE = new File("/dev/urandom");
 
