@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main$Generated" generated="true"><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res"/><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/build/generated/res/rs/debug"/><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/build/generated/res/resValues/debug"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res"><file name="ic_launcher" path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/drawable/ic_launcher.png" qualifiers="" type="drawable"/><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values-v14/styles.xml" qualifiers="v14"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        
-    </style></file><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values/styles.xml" qualifiers=""><style name="AppBaseTheme" parent="android:Theme.Light">
+<merger version="3"><dataSet config="main$Generated" generated="true"><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res"/><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/build/generated/res/rs/debug"/><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/build/generated/res/resValues/debug"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res"><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values/strings.xml" qualifiers=""><string name="app_name">Support</string></file><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values/styles.xml" qualifiers=""><style name="AppBaseTheme" parent="android:Theme.Light">
         
     </style><style name="AppTheme" parent="AppBaseTheme">
         
-    </style></file><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values/strings.xml" qualifiers=""><string name="app_name">Support</string></file><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values-v11/attrs.xml" qualifiers="v11"><declare-styleable name="CircleImageView">
+    </style></file><file name="ic_launcher" path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/drawable/ic_launcher.png" qualifiers="" type="drawable"/><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values-v14/styles.xml" qualifiers="v14"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        
+    </style></file><file path="/home/vitor/AndroidStudioProjects/Companion Library/app/src/main/res/values-v11/attrs.xml" qualifiers="v11"><declare-styleable name="CircleImageView">
         <attr format="dimension" name="civ_border_width"/>
         <attr format="color" name="civ_border_color"/>
         <attr format="boolean" name="civ_border_overlay"/>
