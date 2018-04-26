@@ -536,4 +536,14 @@ public class Utils {
 
 		return true;
 	}
+
+	/**
+	 * Check for camera.
+	 * @param context of the caller.
+	 * @return true if the device has a camera facing away from the screen.
+	 */
+	public static boolean hasCompatibleCamera(Context context) {
+		return context != null && context.getPackageManager() != null &&
+				context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+	}
 }
