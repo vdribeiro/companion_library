@@ -1,12 +1,12 @@
 package companion.support.v8.lang;
 
-import java.io.ByteArrayOutputStream;
-import java.math.BigInteger;
+import android.support.annotation.NonNull;
+import android.util.Base64;
 
 import org.json.JSONObject;
 
-import android.support.annotation.NonNull;
-import android.util.Base64;
+import java.io.ByteArrayOutputStream;
+import java.math.BigInteger;
 
 import companion.support.v8.util.ArraysUtils;
 
@@ -315,17 +315,14 @@ public class ParsingUtils {
 	/**
 	 * Parse string to integer.
 	 * @param string to parse.
-	 * @return integer.
+	 * @return parsed integer or null if not a valid string.
 	 */
-	public static int stringToInt(String string) {
-		int intValue;
+	public static Integer stringToInt(String string) {
 		try {
-			intValue = Integer.parseInt(string);
+			return Integer.parseInt(string);
 		} catch (Throwable t) {
-			intValue = -1;
+			return null;
 		}
-
-		return intValue;
 	}
 
 	/**

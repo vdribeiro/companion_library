@@ -23,6 +23,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
@@ -33,6 +34,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import companion.support.v8.lang.ParsingUtils;
+import companion.support.v8.os.Storage;
 import companion.support.v8.os.Utils;
 import companion.support.v8.time.DateTimeUtils;
 
@@ -47,10 +49,18 @@ public class ImageUtils {
     /** Log tag. */
     private static final String TAG = ImageUtils.class.getSimpleName();
 
-    /** Maximum image size in pixels. */
-    public static int MAX_PIXEL_SIZE = 1080;
+    /** Width 1080p. */
+    public static int WIDTH_1080P = 1920;
+    /** Height 1080p. */
+    public static int HEIGHT_1080P = 1080;
+
+    /** Width 720p. */
+    public static int WIDTH_720P = 1280;
+    /** Height 720p. */
+    public static int HEIGHT_720P = 720;
+
     /** Maximum image size in bytes. */
-    public static int MAX_BYTE_SIZE = 500000;
+    public static int MAX_BYTE_SIZE = 1000000;
     /** Default image quality for compression. */
     public static int DEFAULT_QUALITY = 80;
     /** Default image quality value to decrement if image size
@@ -92,7 +102,17 @@ public class ImageUtils {
             return -1;
         }
 
-        float scale = context.getResources().getDisplayMetrics().density;
+        Resources resources = context.getResources();
+        if (resources == null) {
+            return -1;
+        }
+
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        if (displayMetrics == null) {
+            return -1;
+        }
+
+        float scale = displayMetrics.density;
         return (int) (dp * scale + 0.5f);
     }
 
@@ -218,7 +238,7 @@ public class ImageUtils {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(filePath, options);
-            ImageConfig imageConfig = new ImageConfig(options.outWidth, options.outHeight, MAX_PIXEL_SIZE);
+            ImageConfig imageConfig = new ImageConfig(options.outWidth, options.outHeight, WIDTH_720P);
 
             options.inJustDecodeBounds = false;
             options.inScaled = true;
@@ -244,7 +264,7 @@ public class ImageUtils {
         Bitmap bitmap;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), data.getData());
-            ImageConfig imageConfig = new ImageConfig(bitmap.getWidth(), bitmap.getHeight(), MAX_PIXEL_SIZE);
+            ImageConfig imageConfig = new ImageConfig(bitmap.getWidth(), bitmap.getHeight(), WIDTH_720P);
             bitmap = scaleBitmap(bitmap, imageConfig.dstWidth, imageConfig.dstHeigth);
         } catch (Throwable t) {
             bitmap = null;
@@ -281,7 +301,12 @@ public class ImageUtils {
             return null;
         }
 
-        String path = Utils.getRealPathFromURI(context, data.getData());
+        String path = null;
+        try {
+            path = Storage.getRealPathFromURI(context, data.getData());
+        } catch (Throwable throwable) {
+            // Ignore
+        }
         Bitmap bitmap = parseImageFromFile(path);
 
         if (bitmap != null) {

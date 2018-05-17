@@ -1,12 +1,9 @@
 package companion.support.v8.os;
 
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,20 +11,21 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.support.v4.content.CursorLoader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import java.io.File;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 import companion.support.v8.util.LogHelper;
 
 /**
@@ -76,6 +74,34 @@ public class Utils {
 
 			StrictMode.setThreadPolicy(threadPolicyBuilder.build());
 			StrictMode.setVmPolicy(vmPolicyBuilder.build());
+		}
+	}
+
+	/**
+	 * Erase application data from disk.
+	 * Equivalent to the user choosing to clear the app's data from within the device settings UI.
+	 * It erases all dynamic data associated with the app except OBB files.
+	 * @throws Throwable in case of unexpected error.
+	 */
+	@SuppressWarnings("RedundantThrows")
+	public static void wipeApplicationData(Context context) throws Throwable {
+		if (Utils.hasKitKat()) {
+			ActivityManager actManager = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE));
+			if (actManager != null) {
+				actManager.clearApplicationUserData();
+				return;
+			}
+		}
+
+		File cacheDirectory = context.getCacheDir();
+		File applicationDirectory = new File(cacheDirectory.getParent());
+		if (applicationDirectory.exists()) {
+			String[] fileNames = applicationDirectory.list();
+			for (String fileName : fileNames) {
+				if (!fileName.equals("lib")) {
+					Storage.deleteFileRecursive(new File(applicationDirectory, fileName));
+				}
+			}
 		}
 	}
 
@@ -387,48 +413,6 @@ public class Utils {
 	@TargetApi(VERSION_CODES.GINGERBREAD)
 	public static boolean isXLargeTablet(Context context) {
 		return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
-	}
-
-	/**
-	 * Get URI path.
-	 * @param context of the caller.
-	 * @param uri to parse.
-	 * @return uri path.
-	 */
-	public static String getRealPathFromURI(Context context, Uri uri) {
-		String result;
-		String[] proj = { MediaStore.Images.Media.DATA };
-		Cursor cursor;
-
-		try {
-			if (hasKitKat()) {
-				String wholeID = DocumentsContract.getDocumentId(uri);
-				String id = wholeID.split(":")[1];
-				String sel = MediaStore.Images.Media._ID + "=?";
-				cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-						proj, sel, new String[]{ id }, null);
-			} else {
-				CursorLoader cursorLoader = new CursorLoader(context, uri, proj, null, null, null);
-				cursor = cursorLoader.loadInBackground();
-			}
-
-			if (cursor == null) {
-				return null;
-			}
-
-			int columnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-			if (columnIndex < 0) {
-				return null;
-			}
-
-			cursor.moveToFirst();
-			result = cursor.getString(columnIndex);
-			cursor.close();
-		} catch (Throwable t) {
-			result = null;
-		}
-
-		return result;
 	}
 
 	/**
